@@ -144,7 +144,7 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
         {/* Şehir ve tarih bilgisi - Küçük font */}
         <div className="flex items-center gap-4 text-xs text-gray-500">
           <span>{job.location}</span>
-          <span>5 Eylül 2025</span>
+          
         </div>
       </div>
     </article>
