@@ -11,7 +11,7 @@ import { jobCategories } from '../data/jobCategories';
 import { useAuthContext } from '../contexts/AuthContext';
 import { generateMetaTags } from '../utils/seoUtils';
 import { checkJobDates } from '../utils/dateUtils';
-import { Heart, Filter } from 'lucide-react';
+import { Heart, Filter, X, Search, MapPin, Briefcase, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export function HomePage() {
@@ -19,7 +19,25 @@ export function HomePage() {
   const { pageNumber } = useParams();
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
-  const { jobs, categories, loading, error, refetchJobs } = useJobs(undefined, searchTerm, 40);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Optimized hook kullanımı
+  const { 
+    jobs, 
+    categories, 
+    loading, 
+    loadingMore,
+    error, 
+    hasMore,
+    loadMoreJobs,
+    refetchJobs 
+  } = useJobs({
+    categoryFilter: undefined, 
+    searchTerm, 
+    limit: 20 // Sayfa başına 20 ilan
+  });
+
   const { filters, updateFilters, filteredJobs } = useJobFilters(jobs);
 
   useEffect(() => {
@@ -40,7 +58,7 @@ export function HomePage() {
       url: window.location.pathname
     });
 
-    // Yeni ilan oluşturulduğunda bildirim göster
+    // Toast notifications
     if (location.state?.newJobCreated) {
       toast.success('🎉 İlanınız başarıyla yayınlandı ve en üstte görünüyor!', {
         duration: 4000,
@@ -49,18 +67,17 @@ export function HomePage() {
           background: '#10B981',
           color: '#FFFFFF',
           padding: '16px',
-          borderRadius: '8px',
+          borderRadius: '12px',
           fontSize: '16px',
-          fontWeight: '500'
+          fontWeight: '500',
+          boxShadow: '0 10px 25px rgba(16, 185, 129, 0.3)'
         },
         icon: '🚀'
       });
-      
-      // State'i temizle
       window.history.replaceState({}, document.title);
     }
 
-    // Scroll pozisyonunu geri yükle
+    // Scroll position restore
     const scrollPosition = sessionStorage.getItem('scrollPosition');
     const previousPath = sessionStorage.getItem('previousPath');
     
@@ -74,7 +91,6 @@ export function HomePage() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Debug: İlan tarihlerini kontrol et
     if (jobs.length > 0) {
       checkJobDates(jobs);
     }
@@ -85,51 +101,293 @@ export function HomePage() {
     return category ? `${category.name} İlanları` : 'Tüm İlanlar';
   };
 
-  return (
-    <div className="space-y-8">
-      <SearchHero
-        onSearch={setSearchTerm}
-        onLocationChange={(city) => updateFilters({ city })}
-        onCategorySelect={(category) => updateFilters({ category, subCategory: '' })}
-        availableCategories={categories}
-      />
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await refetchJobs();
+    setIsRefreshing(false);
+    toast.success('📊 İlanlar güncellendi!', {
+      duration: 2000,
+      position: 'bottom-center'
+    });
+  };
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Sidebar */}
-        <div className="lg:col-span-3 space-y-6">
-          <JobFilters
-            filters={filters}
-            onFilterChange={updateFilters}
-            availableCategories={categories}
-          />
+  const toggleMobileFilters = () => {
+    setShowMobileFilters(!showMobileFilters);
+    // Prevent body scroll when filters are open
+    document.body.style.overflow = !showMobileFilters ? 'hidden' : 'auto';
+  };
+
+  // Close mobile filters when clicking outside
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Modern Search Hero */}
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-40 backdrop-blur-sm bg-white/95">
+        <SearchHero
+          onSearch={setSearchTerm}
+          onLocationChange={(city) => updateFilters({ city })}
+          onCategorySelect={(category) => updateFilters({ category, subCategory: '' })}
+          availableCategories={categories}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Mobile Header with Stats */}
+        <div className="lg:hidden mb-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">
+                {filters.category ? getCategoryName(filters.category) : 'Tüm İlanlar'}
+              </h1>
+              <p className="text-sm text-gray-500 flex items-center mt-1">
+                <Briefcase className="w-4 h-4 mr-1" />
+                {filteredJobs.length} aktif ilan
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              {/* Refresh Button */}
+              <button
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                title="İlanları Yenile"
+              >
+                <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              </button>
+              
+              {/* Mobile Filter Button */}
+              <button
+                onClick={toggleMobileFilters}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              >
+                <Filter className="w-4 h-4" />
+                <span className="text-sm font-medium">Filtrele</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Main Content */}
-        <div className="lg:col-span-9">
-          <div className="mb-6 flex justify-between items-center">
-            <h2 className="text-2xl font-bold">
-              {filters.category ? getCategoryName(filters.category) : 'Tüm İlanlar'}
-            </h2>
-            <div className="text-sm text-gray-500">
-              {filteredJobs.length} ilan bulundu
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8">
+          {/* Desktop Sidebar */}
+          <div className="lg:col-span-3">
+            <div className="sticky top-24 space-y-6">
+              {/* Stats Card */}
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold text-gray-900">İstatistikler</h3>
+                  <button
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    title="Yenile"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Toplam İlan</span>
+                    <span className="font-semibold text-blue-600">{jobs.length}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Filtrelenmiş</span>
+                    <span className="font-semibold text-green-600">{filteredJobs.length}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Kategori</span>
+                    <span className="font-semibold text-purple-600">{categories.length}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Filters */}
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+                <JobFilters
+                  filters={filters}
+                  onFilterChange={updateFilters}
+                  availableCategories={categories}
+                />
+              </div>
             </div>
           </div>
 
-          {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-              <p className="mt-4 text-gray-600">İlanlar yükleniyor...</p>
-            </div>
-          ) : error ? (
-            <div className="text-center py-8 text-red-600">{error}</div>
-          ) : (
-            <JobList jobs={filteredJobs} onJobDeleted={refetchJobs} />
-          )}
+          {/* Desktop Main Content */}
+          <div className="lg:col-span-9">
+            <MainContent 
+              loading={loading}
+              error={error}
+              filteredJobs={filteredJobs}
+              filters={filters}
+              getCategoryName={getCategoryName}
+              refetchJobs={refetchJobs}
+              hasMore={hasMore}
+              loadMoreJobs={loadMoreJobs}
+              loadingMore={loadingMore}
+            />
+          </div>
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          <MainContent 
+            loading={loading}
+            error={error}
+            filteredJobs={filteredJobs}
+            filters={filters}
+            getCategoryName={getCategoryName}
+            refetchJobs={refetchJobs}
+            hasMore={hasMore}
+            loadMoreJobs={loadMoreJobs}
+            loadingMore={loadingMore}
+          />
         </div>
       </div>
 
+      {/* Mobile Filter Drawer */}
+      {showMobileFilters && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={toggleMobileFilters}
+          />
+          
+          {/* Drawer */}
+          <div className="absolute inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Filtreler</h3>
+              <button
+                onClick={toggleMobileFilters}
+                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-4 overflow-y-auto h-full pb-20">
+              <JobFilters
+                filters={filters}
+                onFilterChange={(newFilters) => {
+                  updateFilters(newFilters);
+                  setShowMobileFilters(false);
+                }}
+                availableCategories={categories}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* SEO Content */}
-      <SEOJobContent />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <SEOJobContent />
+      </div>
     </div>
   );
 }
+
+// Main Content Component
+const MainContent: React.FC<{
+  loading: boolean;
+  error: string | null;
+  filteredJobs: any[];
+  filters: any;
+  getCategoryName: (categoryId: string) => string;
+  refetchJobs: () => void;
+  hasMore: boolean;
+  loadMoreJobs: () => void;
+  loadingMore: boolean;
+}> = ({
+  loading,
+  error,
+  filteredJobs,
+  filters,
+  getCategoryName,
+  refetchJobs,
+  hasMore,
+  loadMoreJobs,
+  loadingMore
+}) => {
+  // Loading State
+  if (loading && filteredJobs.length === 0) {
+    return (
+      <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-blue-600 border-t-transparent mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">İlanlar Yükleniyor</h3>
+          <p className="text-gray-600">En güncel iş fırsatları getiriliyor...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error State
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-xl p-8 text-center">
+        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <X className="w-6 h-6 text-red-600" />
+        </div>
+        <h3 className="text-lg font-semibold text-red-900 mb-2">Bir Hata Oluştu</h3>
+        <p className="text-red-700 mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+        >
+          Sayfayı Yenile
+        </button>
+      </div>
+    );
+  }
+
+  // Empty State
+  if (filteredJobs.length === 0) {
+    return (
+      <div className="bg-white rounded-xl p-12 shadow-sm border border-gray-200 text-center">
+        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Search className="w-8 h-8 text-gray-400" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">İlan Bulunamadı</h3>
+        <p className="text-gray-600 mb-6">Arama kriterlerinizi değiştirmeyi deneyin.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Tüm İlanları Göster
+        </button>
+      </div>
+    );
+  }
+
+  // Job List
+  return (
+    <div className="space-y-6">
+      {/* Desktop Header */}
+      <div className="hidden lg:block">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {filters.category ? getCategoryName(filters.category) : 'Tüm İlanlar'}
+            </h2>
+            <p className="text-gray-600 mt-1">{filteredJobs.length} ilan listeleniyor</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Job List */}
+      <JobList 
+        jobs={filteredJobs} 
+        onJobDeleted={refetchJobs}
+        hasMore={hasMore}
+        loadMoreJobs={loadMoreJobs}
+        loadingMore={loadingMore}
+      />
+    </div>
+  );
+};
