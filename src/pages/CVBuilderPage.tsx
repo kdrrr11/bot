@@ -93,41 +93,83 @@ export function CVBuilderPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      {/* Full Header - Only on top */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900">CV Oluşturucu</h1>
+            <p className="text-lg text-gray-600 mt-2">
+              Profesyonel CV'nizi kolayca oluşturun ve indirin
+            </p>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mt-6 max-w-md mx-auto">
+            <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
+              <span>Tamamlanma Oranı</span>
+              <span>{Math.round(completionPercentage)}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div 
+                className="bg-blue-600 h-3 rounded-full transition-all duration-300"
+                style={{ width: `${completionPercentage}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Compact Sticky Bar */}
+      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">CV Oluşturucu</h1>
-              <p className="text-sm text-gray-600 mt-1">
-                Profesyonel CV'nizi kolayca oluşturun ve indirin
-              </p>
+            <div className="flex items-center gap-4">
+              <span className="font-semibold text-gray-900">CV Builder</span>
+              <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
+                <div className="w-16 bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${completionPercentage}%` }}
+                  />
+                </div>
+                <span>{Math.round(completionPercentage)}%</span>
+              </div>
             </div>
             
             {/* Mobile Preview Toggle */}
             <div className="lg:hidden">
               <Button
                 variant="outline"
+                size="sm"
                 onClick={() => setPreviewVisible(!previewVisible)}
                 className="flex items-center gap-2"
               >
                 {previewVisible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                {previewVisible ? 'Formu Göster' : 'Önizleme'}
+                {previewVisible ? 'Form' : 'Önizleme'}
               </Button>
             </div>
-          </div>
 
-          {/* Progress Bar */}
-          <div className="mt-4">
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-1">
-              <span>Tamamlanma Oranı</span>
-              <span>{Math.round(completionPercentage)}%</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${completionPercentage}%` }}
-              />
+            {/* Quick Actions - Desktop */}
+            <div className="hidden lg:flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handlePrint}
+                className="flex items-center gap-2"
+                disabled={isGenerating}
+              >
+                <Printer className="h-4 w-4" />
+                Yazdır
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleDownload}
+                className="flex items-center gap-2"
+                disabled={isGenerating}
+              >
+                <Download className="h-4 w-4" />
+                {isGenerating ? 'Hazırlanıyor...' : 'İndir'}
+              </Button>
             </div>
           </div>
         </div>
@@ -290,8 +332,8 @@ export function CVBuilderPage() {
 
           {/* Preview - Sağ taraf */}
           <div className={`lg:col-span-2 ${!previewVisible ? 'hidden lg:block' : 'block'}`}>
-            <div className="lg:sticky lg:top-32 space-y-4">
-              {/* Kontroller */}
+            <div className="space-y-4">
+              {/* Kontroller - Normal position (not sticky) */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold mb-4">CV Formatı</h3>
                 
