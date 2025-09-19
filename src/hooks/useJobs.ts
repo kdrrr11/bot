@@ -7,8 +7,8 @@ import {
   equalTo,
   get,
   set,
-  limitToFirst,
-  startAfter,
+  limitToLast,
+  endAt,
 } from 'firebase/database';
 import { db } from '../lib/firebase';
 import type { JobListing } from '../types';
@@ -66,11 +66,11 @@ export function useJobs(options: UseJobsOptions = {}) {
       try {
         const jobsRef = ref(db, 'jobs');
         
-        // Query oluştur
+        // Query oluştur - EN YENİ İLANLARI AL
         let jobsQuery = query(
           jobsRef,
           orderByChild('createdAt'),
-          limitToFirst(limit)
+          limitToLast(limit) // ✅ Son 20 = en yeni
         );
 
         if (categoryFilter && categoryFilter !== 'all') {
@@ -78,7 +78,7 @@ export function useJobs(options: UseJobsOptions = {}) {
             jobsRef,
             orderByChild('category'),
             equalTo(categoryFilter),
-            limitToFirst(limit)
+            limitToLast(limit) // ✅ Son 20 = en yeni
           );
         }
 
@@ -113,7 +113,14 @@ export function useJobs(options: UseJobsOptions = {}) {
 
         let newLastKey: string | null = null;
 
-        Object.entries(data).forEach(([key, value]) => {
+        // Firebase'den gelen veriyi array'e çevir ve tarihe göre sırala
+        const dataEntries = Object.entries(data).sort(([,a], [,b]) => {
+          const aTime = (a as any).createdAt || 0;
+          const bTime = (b as any).createdAt || 0;
+          return bTime - aTime; // Yeniden eskiye
+        });
+
+        dataEntries.forEach(([key, value]) => {
           const job = value as Omit<JobListing, 'id'>;
           const jobWithId = { id: key, ...job } as JobListing;
 
@@ -189,11 +196,15 @@ export function useJobs(options: UseJobsOptions = {}) {
     try {
       const jobsRef = ref(db, 'jobs');
       
+      // Son yüklenen ilan tarihini al
+      const lastJob = cachedJobs.get(lastKey);
+      const lastTimestamp = lastJob?.createdAt || Date.now();
+      
       let jobsQuery = query(
         jobsRef,
         orderByChild('createdAt'),
-        startAfter(lastKey),
-        limitToFirst(limit)
+        endAt(lastTimestamp - 1), // Son yüklenen ilandan önceki ilanlar
+        limitToLast(limit) // ✅ En yeni limit adet al
       );
 
       if (categoryFilter && categoryFilter !== 'all') {
@@ -201,8 +212,7 @@ export function useJobs(options: UseJobsOptions = {}) {
           jobsRef,
           orderByChild('category'),
           equalTo(categoryFilter),
-          startAfter(lastKey),
-          limitToFirst(limit)
+          limitToLast(limit) // ✅ En yeni limit adet al
         );
       }
 
@@ -213,7 +223,16 @@ export function useJobs(options: UseJobsOptions = {}) {
         const jobsList: JobListing[] = [];
         let newLastKey: string | null = null;
 
-        Object.entries(data).forEach(([key, value]) => {
+        // Verileri tarihe göre sırala (yeniden eskiye)
+        const dataEntries = Object.entries(data)
+          .filter(([key]) => !cachedJobs.has(key)) // Zaten cache'de olanları filtrele
+          .sort(([,a], [,b]) => {
+            const aTime = (a as any).createdAt || 0;
+            const bTime = (b as any).createdAt || 0;
+            return bTime - aTime;
+          });
+
+        dataEntries.forEach(([key, value]) => {
           const job = value as Omit<JobListing, 'id'>;
           const jobWithId = { id: key, ...job } as JobListing;
 
