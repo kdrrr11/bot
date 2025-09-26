@@ -37,19 +37,19 @@ export function LocationSearch({ onLocationChange }: LocationSearchProps) {
         onChange={handleInputChange}
         onFocus={() => setShowSuggestions(true)}
         onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-        className="form-input w-full pl-12 pr-4 py-3 sm:py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 text-base"
+        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 placeholder-gray-500 text-base font-medium shadow-sm"
       />
 
       {showSuggestions && (
-        <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 max-h-64 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border-2 border-gray-200 max-h-64 overflow-y-auto">
           {filteredCities.length === 0 ? (
             <div className="px-4 py-3 text-gray-500 text-sm">🏙️ Şehir bulunamadı</div>
           ) : (
-            filteredCities.map((city) => (
+            filteredCities.slice(0, 10).map((city) => (
               <button
                 key={city}
                 onClick={() => handleCitySelect(city)}
-                className="w-full text-left px-4 py-3 text-gray-900 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none transition-colors text-sm sm:text-base touch-target"
+                className="w-full text-left px-4 py-3 text-gray-900 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:outline-none transition-colors text-sm font-medium touch-target"
               >
                 {city}
               </button>

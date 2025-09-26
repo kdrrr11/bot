@@ -1,23 +1,20 @@
-import React, { useEffect } from 'react';
-import { Briefcase, Heart } from 'lucide-react';
+import React from 'react';
+import { Briefcase, RefreshCw } from 'lucide-react';
 import { Pagination } from '../ui/Pagination';
 import { usePagination } from '../../hooks/usePagination';
 import { JobCard } from './JobCard';
-import { FavoriteJobs } from './FavoriteJobs';
-import { useAuthContext } from '../../contexts/AuthContext';
-import { toast } from 'react-hot-toast';
+import { Button } from '../ui/Button';
 import type { JobListing } from '../../types';
 
 interface JobListProps {
   jobs: JobListing[];
-  category?: string;
-  location?: string;
   onJobDeleted?: () => void;
+  hasMore?: boolean;
+  loadMoreJobs?: () => void;
+  loadingMore?: boolean;
 }
 
-export function JobList({ jobs, onJobDeleted }: JobListProps) {
-  const { user } = useAuthContext();
-  
+export function JobList({ jobs, onJobDeleted, hasMore, loadMoreJobs, loadingMore }: JobListProps) {
   // Sayfalama hook'u
   const {
     currentPage,
@@ -40,44 +37,71 @@ export function JobList({ jobs, onJobDeleted }: JobListProps) {
 
   if (jobs.length === 0) {
     return (
-      <div className="text-center py-12 sm:py-16">
+      <div className="text-center py-16">
         <div className="max-w-md mx-auto">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Briefcase className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Briefcase className="h-8 w-8 text-gray-400" />
           </div>
-          <h3 className="text-responsive-base font-semibold text-gray-900 mb-2">İlan Bulunamadı</h3>
-          <p className="text-responsive-sm text-gray-600 mb-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">İlan Bulunamadı</h3>
+          <p className="text-gray-600 mb-6">
             Bu kriterlere uygun ilan bulunamadı. Farklı arama kriterleri deneyebilirsiniz.
           </p>
+          <Button
+            onClick={() => window.location.reload()}
+            className="btn-primary"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Sayfayı Yenile
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-responsive">
-      {/* İlan sayısı bilgisi */}
-      <div className="flex items-center justify-between bg-white p-responsive rounded-lg shadow-sm border border-gray-100">
-        <div className="text-responsive-xs text-gray-600">
-          <span className="font-medium text-gray-900">
-            {startIndex}-{endIndex}
-          </span>
-          {' arası gösteriliyor, toplam '}
-          <span className="font-medium text-gray-900">{totalItems}</span>
-          {' ilan'}
+    <div className="space-y-6">
+      {/* Results Header */}
+      <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+              İş İlanları Listesi
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">
+              <span className="font-semibold text-red-600">{startIndex}-{endIndex}</span>
+              {' arası gösteriliyor, toplam '}
+              <span className="font-semibold text-red-600">{totalItems}</span>
+              {' ilan'}
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-red-600">{totalItems}</div>
+            <div className="text-xs text-gray-500">Aktif İlan</div>
+          </div>
         </div>
       </div>
 
-      {/* İlanlar listesi */}
-      <div className="space-y-3 sm:space-y-4">
-        {paginatedItems.map((job, index) => {
-          return (
-            <JobCard key={job.id} job={job} onDeleted={handleJobDeleted} />
-          );
-        })}
+      {/* Job Cards */}
+      <div className="space-y-4">
+        {paginatedItems.map((job, index) => (
+          <JobCard key={job.id} job={job} onDeleted={handleJobDeleted} />
+        ))}
       </div>
 
-      {/* Sayfalama */}
+      {/* Load More Button (if applicable) */}
+      {hasMore && loadMoreJobs && (
+        <div className="text-center py-6">
+          <Button
+            onClick={loadMoreJobs}
+            isLoading={loadingMore}
+            className="btn-outline"
+          >
+            {loadingMore ? 'Yükleniyor...' : 'Daha Fazla İlan Yükle'}
+          </Button>
+        </div>
+      )}
+
+      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

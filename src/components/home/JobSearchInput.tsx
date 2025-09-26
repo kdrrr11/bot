@@ -19,7 +19,7 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
     category.subCategories.map(sub => sub.name)
   );
 
-  // Popular search terms
+  // Popular search terms - İsinolsun.com inspired
   const popularSearchTerms = [
     'Yazılım Geliştirici İş İlanları',
     'Satış Temsilcisi İş İlanları',
@@ -28,15 +28,15 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
     'Mühendis İş İlanları',
     'Garson İş İlanları',
     'Kurye İş İlanları',
-    'Evde Paketleme İş İlanları',
-    'Getir Kurye İş İlanları',
     'Resepsiyon Görevlisi İş İlanları',
     'Aşçı Yardımcısı İş İlanları',
     'Özel Güvenlik İş İlanları',
     'Part Time İş İlanları',
     'Remote İş İlanları',
     'Yeni Mezun İş İlanları',
-    'Deneyimsiz İş İlanları'
+    'Deneyimsiz İş İlanları',
+    'Evde Paketleme İş İlanları',
+    'Getir Kurye İş İlanları'
   ];
 
   useEffect(() => {
@@ -79,7 +79,6 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
     if (inputValue.length >= 2) {
       setShowSuggestions(true);
     } else if (inputValue.length === 0) {
-      // Show popular searches when input is empty
       setSuggestions(popularSearchTerms);
       setShowSuggestions(true);
     }
@@ -95,16 +94,18 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
         placeholder="İş ara... (Yazılım Geliştirici, Garson, Kurye, Mühendis)"
         onChange={handleInputChange}
         onFocus={handleFocus}
-        className="form-input w-full pl-12 pr-4 py-3 sm:py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 text-base"
+        className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-900 placeholder-gray-500 text-base font-medium shadow-sm"
       />
       
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 py-2 max-h-64 overflow-y-auto"
+          className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border-2 border-gray-200 py-2 max-h-64 overflow-y-auto"
         >
           {inputValue.length === 0 && (
-            <div className="px-4 py-2 text-xs text-gray-500 font-semibold border-b border-gray-100">🔥 Popüler İş Aramaları</div>
+            <div className="px-4 py-2 text-xs text-gray-500 font-semibold border-b border-gray-100 bg-red-50">
+              🔥 Popüler İş Aramaları
+            </div>
           )}
           
           {suggestions.length > 0 ? (
@@ -112,7 +113,7 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
               <button
                 key={index}
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="w-full text-left px-4 py-3 text-gray-900 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none transition-colors text-sm sm:text-base touch-target"
+                className="w-full text-left px-4 py-3 text-gray-900 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:outline-none transition-colors text-sm font-medium touch-target"
               >
                 {suggestion}
               </button>

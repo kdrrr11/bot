@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Search, MapPin, Briefcase, TrendingUp, Users, Star, ArrowRight } from 'lucide-react';
 import { JobSearchInput } from './JobSearchInput';
 import { CategorySearch } from './CategorySearch';
 import { LocationSearch } from './LocationSearch';
 import { Button } from '../ui/Button';
-import { Filter, FileText, TrendingUp, MapPin, Briefcase, Search } from 'lucide-react';
 
 interface SearchHeroProps {
   onSearch: (search: string) => void;
@@ -21,7 +21,7 @@ export function SearchHero({
   const [showCategories, setShowCategories] = useState(false);
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 overflow-hidden">
+    <section className="search-hero -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 overflow-hidden relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white/20 to-transparent"></div>
@@ -29,107 +29,43 @@ export function SearchHero({
         <div className="absolute bottom-10 left-10 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
       </div>
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-6xl mx-auto">
         {/* Hero Content */}
-        <div className="text-center mb-8 sm:mb-10">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight">
-            İş İlanları 2025 - Türkiye'nin En Güncel İş Fırsatları
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            İş İlanları 2025
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-blue-100 mb-4 max-w-4xl mx-auto leading-relaxed">
-            Türkiye'nin en kapsamlı iş ilanları platformu. <strong className="text-white">6 Ocak 2025</strong> itibarıyla <strong className="text-white">50.000+</strong> aktif iş ilanı. İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları.
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-6">
+            Türkiye'nin En Güncel İş Fırsatları
+          </h2>
+          <p className="text-base sm:text-lg text-white/80 mb-6 max-w-4xl mx-auto leading-relaxed">
+            <strong className="text-white">6 Ocak 2025</strong> itibarıyla <strong className="text-white">50.000+</strong> aktif iş ilanı. 
+            İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları.
           </p>
-          <p className="text-sm sm:text-base text-blue-200 mb-6 max-w-3xl mx-auto">
-            Mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik pozisyonları ve binlerce farklı kariyer fırsatı. Hemen başvurun, kariyerinizi şekillendirin!
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 text-sm text-blue-200">
-            <span className="bg-white/20 px-3 py-1 rounded-full">✨ Ücretsiz İlan Ver</span>
-            <span className="bg-white/20 px-3 py-1 rounded-full">📄 CV Oluştur</span>
-            <span className="bg-white/20 px-3 py-1 rounded-full">🚀 Hemen Başvur</span>
-          </div>
-        </div>
-        
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
-          <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-white">50K+</div>
-            <div className="text-xs sm:text-sm text-blue-200">Güncel İlan</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-white">81</div>
-            <div className="text-xs sm:text-sm text-blue-200">İl Genelinde</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-white">25+</div>
-            <div className="text-xs sm:text-sm text-blue-200">Farklı Sektör</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-white">7/24</div>
-            <div className="text-xs sm:text-sm text-blue-200">Güncel Akış</div>
-          </div>
-        </div>
-        
-        {/* Popular Cities Quick Links */}
-        <div className="mb-8">
-          <p className="text-blue-200 text-sm mb-4 font-medium">🏙️ Popüler Şehirlerdeki İş İlanları:</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya', 'Adana'].map((city) => (
-              <button
-                key={city}
-                onClick={() => onLocationChange(city)}
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 backdrop-blur-sm"
-              >
-                {city}
-              </button>
-            ))}
-          </div>
-        </div>
-        
-        {/* Popular Job Types */}
-        <div className="mb-8">
-          <p className="text-blue-200 text-sm mb-4 font-medium">💼 En Çok Aranan Pozisyonlar:</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {[
-              { name: 'Mühendis', category: 'teknoloji' },
-              { name: 'Garson', category: 'hizmet' },
-              { name: 'Kurye', category: 'lojistik' },
-              { name: 'Resepsiyon', category: 'turizm' },
-              { name: 'Aşçı Yardımcısı', category: 'hizmet' },
-              { name: 'Özel Güvenlik', category: 'guvenlik' }
-            ].map((job) => (
-              <button
-                key={job.name}
-                onClick={() => onCategorySelect(job.category)}
-                className="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 backdrop-blur-sm"
-              >
-                {job.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Çalışma Şekilleri */}
-        <div className="mb-8">
-          <p className="text-blue-200 text-sm mb-4 font-medium">⏰ Çalışma Şekillerine Göre İş İlanları:</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {[
-              { name: 'Tam Zamanlı', type: 'full-time' },
-              { name: 'Part Time', type: 'part-time' },
-              { name: 'Remote', type: 'remote' },
-              { name: 'Freelance', type: 'freelance' },
-              { name: 'Staj', type: 'internship' }
-            ].map((workType) => (
-              <button
-                key={workType.name}
-                className="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 backdrop-blur-sm"
-              >
-                {workType.name}
-              </button>
-            ))}
+          
+          {/* Quick Stats */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-white">50K+</div>
+              <div className="text-xs sm:text-sm text-white/70">Güncel İlan</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-white">81</div>
+              <div className="text-xs sm:text-sm text-white/70">İl Genelinde</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-white">25+</div>
+              <div className="text-xs sm:text-sm text-white/70">Farklı Sektör</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-white">7/24</div>
+              <div className="text-xs sm:text-sm text-white/70">Güncel Akış</div>
+            </div>
           </div>
         </div>
         
         {/* Search Form */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-strong max-w-4xl mx-auto">
+        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-xl max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
             <div className="relative">
               <JobSearchInput 
@@ -137,7 +73,7 @@ export function SearchHero({
                 onFocus={() => setShowCategories(true)}
               />
               {showCategories && (
-                <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 p-4">
+                <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border border-gray-200 p-4">
                   <CategorySearch 
                     onCategorySelect={(category) => {
                       onCategorySelect(category);
@@ -151,7 +87,54 @@ export function SearchHero({
             <LocationSearch onLocationChange={onLocationChange} />
           </div>
 
+          {/* Popular Cities */}
+          <div className="mb-6">
+            <p className="text-gray-600 text-sm mb-3 font-medium">🏙️ Popüler Şehirler:</p>
+            <div className="flex flex-wrap gap-2">
+              {['İstanbul', 'Ankara', 'İzmir', 'Bursa', 'Antalya', 'Adana'].map((city) => (
+                <button
+                  key={city}
+                  onClick={() => onLocationChange(city)}
+                  className="bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                >
+                  {city}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular Job Types */}
+          <div className="mb-6">
+            <p className="text-gray-600 text-sm mb-3 font-medium">💼 Popüler Pozisyonlar:</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { name: 'Mühendis', category: 'teknoloji' },
+                { name: 'Garson', category: 'hizmet' },
+                { name: 'Kurye', category: 'lojistik' },
+                { name: 'Resepsiyon', category: 'turizm' },
+                { name: 'Aşçı Yardımcısı', category: 'hizmet' },
+                { name: 'Güvenlik', category: 'guvenlik' }
+              ].map((job) => (
+                <button
+                  key={job.name}
+                  onClick={() => onCategorySelect(job.category)}
+                  className="bg-gray-100 hover:bg-blue-50 hover:text-blue-600 text-gray-700 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200"
+                >
+                  {job.name}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button
+              onClick={() => window.location.href = '/cv-olustur'}
+              className="btn-secondary flex items-center justify-center gap-2"
+            >
+              <FileText className="h-4 w-4" />
+              Ücretsiz CV Oluştur
+            </Button>
             <Button
               onClick={() => {
                 const filtersElement = document.getElementById('filters');
@@ -159,17 +142,10 @@ export function SearchHero({
                   filtersElement.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="btn-secondary flex items-center justify-center gap-2 flex-1 sm:flex-none"
+              className="btn-outline flex items-center justify-center gap-2"
             >
-              <Filter className="h-4 w-4" />
-              Detaylı Filtreler
-            </Button>
-            <Button
-              onClick={() => window.location.href = '/cv-olustur'}
-              className="btn-primary flex items-center justify-center gap-2 flex-1 sm:flex-none"
-            >
-              <FileText className="h-4 w-4" />
-              Ücretsiz CV Oluştur
+              <Search className="h-4 w-4" />
+              Detaylı Arama
             </Button>
           </div>
           
@@ -186,11 +162,11 @@ export function SearchHero({
                 KVKK Uyumlu
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                Ücretsiz Kullanım
+                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                Ücretsiz
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                 50K+ İlan
               </span>
             </div>

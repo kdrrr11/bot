@@ -3,6 +3,7 @@ import { clsx } from 'clsx';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
 }
 
@@ -10,6 +11,7 @@ export function Button({
   children, 
   className, 
   variant = 'primary', 
+  size = 'md',
   isLoading, 
   disabled,
   ...props 
@@ -17,11 +19,17 @@ export function Button({
   return (
     <button
       className={clsx(
-        'px-4 py-3 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-target inline-flex items-center justify-center gap-2',
+        'inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-target no-tap-highlight',
         {
-          'bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md': variant === 'primary',
-          'bg-gray-100 text-gray-800 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2': variant === 'secondary',
-          'border border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 bg-white': variant === 'outline',
+          // Variants
+          'bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-sm hover:shadow-md': variant === 'primary',
+          'bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md': variant === 'secondary',
+          'border-2 border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-600 hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 bg-white': variant === 'outline',
+          
+          // Sizes
+          'px-3 py-2 text-sm rounded-lg': size === 'sm',
+          'px-6 py-3 text-base rounded-xl': size === 'md',
+          'px-8 py-4 text-lg rounded-xl': size === 'lg',
         },
         className
       )}

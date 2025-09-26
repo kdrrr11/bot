@@ -7,7 +7,10 @@ import {
   MapPin,
   Building2,
   Clock,
-  DollarSign
+  DollarSign,
+  Crown,
+  Star,
+  Bookmark
 } from 'lucide-react';
 import {
   isToday,
@@ -16,7 +19,7 @@ import {
   formatDate,
   getTimeAgo,
 } from '../../utils/dateUtils';
-import { generateJobUrl, generateSlug } from '../../utils/seoUtils';
+import { generateJobUrl } from '../../utils/seoUtils';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useJobActions } from '../../hooks/useJobActions';
 import { PremiumBadge } from '../premium/PremiumBadge';
@@ -36,6 +39,7 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
   // Premium kontrolü
   const isPremium = job.isPremium && job.premiumEndDate && job.premiumEndDate > Date.now();
   const premiumPackage = job.premiumPackage as 'daily' | 'weekly' | 'monthly' | undefined;
+  
   const handleJobClick = () => {
     // Scroll pozisyonunu kaydet
     sessionStorage.setItem('scrollPosition', window.scrollY.toString());
@@ -48,14 +52,12 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
   };
 
   const handleDeleteClick = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // İlan kartına tıklama olayını engelle
+    e.stopPropagation();
 
     const confirmMessage = `"${job.title}" ilanını silmek istediğinizden emin misiniz?\n\nBu işlem geri alınamaz.`;
 
     if (window.confirm(confirmMessage)) {
       try {
-        console.log('İlan silme onaylandı:', job.id);
-
         const success = await deleteJob(job.id);
         if (success) {
           toast.success('İlan başarıyla silindi');
@@ -71,41 +73,26 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
   };
 
   // Tarih kontrolleri
-  const isTodayJob = (createdAt: number) => {
-    if (!createdAt || isNaN(createdAt) || createdAt <= 0) return false;
-    return isToday(createdAt);
-  };
-
-  const isYesterdayJob = (createdAt: number) => {
-    if (!createdAt || isNaN(createdAt) || createdAt <= 0) return false;
-    return isYesterday(createdAt);
-  };
-
-  const isRecentJob = (createdAt: number) => {
-    if (!createdAt || isNaN(createdAt) || createdAt <= 0) return false;
-    return (
-      isThisWeek(createdAt) &&
-      !isTodayJob(createdAt) &&
-      !isYesterdayJob(createdAt)
-    );
-  };
+  const isTodayJob = isToday(job.createdAt);
+  const isYesterdayJob = isYesterday(job.createdAt);
+  const isRecentJob = isThisWeek(job.createdAt) && !isTodayJob && !isYesterdayJob;
 
   return (
     <article 
-      className={`job-card group cursor-pointer relative touch-manipulation transition-all duration-300 hover:shadow-lg ${
-        isPremium ? 'ring-2 ring-blue-300 bg-gradient-to-r from-blue-50 via-white to-purple-50' : 'hover:border-blue-200'
+      className={`job-card group cursor-pointer relative touch-manipulation ${
+        isPremium ? 'job-card-premium' : ''
       }`} 
       onClick={handleJobClick}
       itemScope 
       itemType="https://schema.org/JobPosting"
     >
-      {/* Premium Background */}
+      {/* Premium Top Border */}
       {isPremium && (
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 rounded-t-lg"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 rounded-t-xl"></div>
       )}
       
       <div className="relative z-10">
-        {/* Admin Silme Butonu */}
+        {/* Admin Delete Button */}
         {isAdmin && (
           <button
             onClick={handleDeleteClick}
@@ -117,47 +104,48 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           </button>
         )}
 
-        {/* Mobil Optimized Layout */}
+        {/* Card Content */}
         <div className="space-y-4">
-          {/* Header Row */}
+          {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               <h2 
-                className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight line-clamp-2 mb-2"
+                className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors leading-tight line-clamp-2 mb-2"
                 itemProp="title"
               >
                 {job.title}
               </h2>
-              <div className="flex items-center gap-2 text-sm text-gray-600 mb-1">
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                 <Building2 className="h-4 w-4 text-gray-400" />
-                <span className="font-medium" itemProp="hiringOrganization">{job.company}</span>
+                <span className="font-semibold" itemProp="hiringOrganization">{job.company}</span>
               </div>
             </div>
 
-            <div className="flex flex-col gap-1 flex-shrink-0 items-end">
-              {/* Premium rozet */}
+            <div className="flex flex-col gap-2 flex-shrink-0 items-end">
+              {/* Premium Badge */}
               {isPremium && premiumPackage && (
-                <PremiumBadge packageType={premiumPackage} />
+                <div className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full text-xs font-bold">
+                  <Crown className="h-3 w-3" />
+                  PREMİUM
+                </div>
               )}
               
-              {/* BUGÜN ETİKETİ */}
-              {isTodayJob(job.createdAt) && (
+              {/* Date Badges */}
+              {isTodayJob && (
                 <span className="px-3 py-1 text-xs font-bold bg-red-500 text-white rounded-full flex items-center gap-1 animate-pulse shadow-md">
                   <Zap className="h-3 w-3" />
                   BUGÜN
                 </span>
               )}
-              {/* DÜN ETİKETİ */}
-              {isYesterdayJob(job.createdAt) && (
+              {isYesterdayJob && (
                 <span className="px-3 py-1 text-xs font-bold bg-orange-500 text-white rounded-full flex items-center gap-1 shadow-md">
                   <Sparkles className="h-3 w-3" />
                   DÜN
                 </span>
               )}
-              {/* YENİ ETİKETİ */}
-              {isRecentJob(job.createdAt) && (
+              {isRecentJob && (
                 <span className="px-3 py-1 text-xs font-bold bg-green-500 text-white rounded-full flex items-center gap-1 shadow-md">
-                  <Sparkles className="h-3 w-3" />
+                  <Star className="h-3 w-3" />
                   YENİ
                 </span>
               )}
@@ -171,9 +159,8 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
               <span itemProp="jobLocation">{job.location}</span>
             </div>
             
-            {/* Job Type Badge */}
             <span 
-              className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-medium"
+              className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-semibold"
               itemProp="employmentType"
             >
               {job.type}
@@ -187,8 +174,8 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
             </p>
           </div>
           
-          {/* Bottom Row - Salary and Date */}
-          <div className="flex items-center justify-between gap-3 pt-2 border-t border-gray-100">
+          {/* Bottom Row */}
+          <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100">
             <div className="flex items-center gap-3 text-xs text-gray-500">
               <div className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />
@@ -208,11 +195,23 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
             )}
           </div>
           
-          {/* Mobile Description Preview */}
+          {/* Mobile Description */}
           <div className="sm:hidden">
             <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
               {job.description}
             </p>
+          </div>
+
+          {/* Category Badge */}
+          <div className="flex items-center gap-2">
+            <span className="badge-category">
+              {job.category}
+            </span>
+            {job.subCategory && job.subCategory !== 'custom' && (
+              <span className="badge-category">
+                {job.subCategory}
+              </span>
+            )}
           </div>
         </div>
       </div>

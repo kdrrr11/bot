@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Briefcase as BriefcaseIcon, CircleUser as UserCircle, Settings, LogOut, Trash2, FileText, Menu, X, Search } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, MapPin, Menu, X, User, Settings, LogOut, Briefcase, FileText, Plus } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { DeleteAccountModal } from './DeleteAccountModal';
 
 export function Header() {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -30,42 +31,33 @@ export function Header() {
   return (
     <header className="header">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16">
+        <div className="flex justify-between items-center h-16 lg:h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="p-1.5 sm:p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
-              <BriefcaseIcon className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
-            </div>
-            <div className="hidden sm:block">
-              <span className="text-lg sm:text-xl font-bold text-gray-900">İş İlanları</span>
-              <div className="text-xs text-gray-500 hidden md:block">2025 Güncel Fırsatlar</div>
-            </div>
-            <div className="sm:hidden">
-              <span className="text-lg font-bold text-gray-900">İş İlanları</span>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+                <Briefcase className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <span className="text-xl font-bold text-gray-900">İŞİNOLSUN</span>
+                <div className="text-xs text-gray-500 hidden sm:block">İş İlanları</div>
+              </div>
             </div>
           </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            <Link
-              to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'instant' })}
-              className="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 font-medium touch-target"
-            >
-              Ana Sayfa
+            <Link to="/" className="nav-link">
+              <Search className="h-4 w-4" />
+              İş İlanları
             </Link>
-            <Link
-              to="/cv-olustur"
-              className="px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200 font-medium flex items-center gap-2 touch-target"
-            >
+            <Link to="/cv-olustur" className="nav-link">
               <FileText className="h-4 w-4" />
               CV Oluştur
             </Link>
             {user && (
-              <Link
-                to="/ilan-ver"
-                className="btn-primary ml-3"
-              >
+              <Link to="/ilan-ver" className="btn-primary ml-4">
+                <Plus className="h-4 w-4" />
                 İlan Ver
               </Link>
             )}
@@ -80,9 +72,9 @@ export function Header() {
               aria-label="Menüyü aç/kapat"
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
+                <X className="h-6 w-6 text-gray-600" />
               ) : (
-                <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
+                <Menu className="h-6 w-6 text-gray-600" />
               )}
             </button>
 
@@ -93,8 +85,8 @@ export function Header() {
                   className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors touch-target"
                   aria-label="Kullanıcı menüsü"
                 >
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <UserCircle className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                    <User className="h-5 w-5 text-red-600" />
                   </div>
                   <span className="hidden md:block text-sm font-medium text-gray-700">
                     {user.email.split('@')[0]}
@@ -102,11 +94,11 @@ export function Header() {
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-strong border border-gray-100 py-2 z-50">
-                    <div className="px-4 py-2 border-b border-gray-100">
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
                       <div className="text-sm font-medium text-gray-900 truncate">{user.email}</div>
                       {isAdmin && (
-                        <div className="text-xs text-blue-600 font-medium">Admin</div>
+                        <div className="text-xs text-red-600 font-medium">Admin</div>
                       )}
                     </div>
 
@@ -115,7 +107,7 @@ export function Header() {
                       className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors touch-target"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <BriefcaseIcon className="h-4 w-4 mr-3 text-gray-400" />
+                      <Briefcase className="h-4 w-4 mr-3 text-gray-400" />
                       İlanlarım
                     </Link>
 
@@ -151,32 +143,15 @@ export function Header() {
                       <LogOut className="h-4 w-4 mr-3 text-gray-400" />
                       Çıkış Yap
                     </button>
-
-                    <button
-                      onClick={() => {
-                        setShowDeleteModal(true);
-                        setIsDropdownOpen(false);
-                      }}
-                      className="flex items-center w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors touch-target"
-                    >
-                      <Trash2 className="h-4 w-4 mr-3" />
-                      Hesabı Sil
-                    </button>
                   </div>
                 )}
               </div>
             ) : (
               <div className="hidden lg:flex items-center space-x-3">
-                <Link
-                  to="/giris"
-                  className="btn-secondary"
-                >
+                <Link to="/giris" className="btn-outline">
                   Giriş Yap
                 </Link>
-                <Link
-                  to="/kayit"
-                  className="btn-primary"
-                >
+                <Link to="/kayit" className="btn-primary">
                   Kayıt Ol
                 </Link>
               </div>
@@ -194,7 +169,7 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Search className="h-5 w-5 text-gray-400" />
-                Ana Sayfa
+                İş İlanları
               </Link>
 
               <Link
@@ -210,10 +185,10 @@ export function Header() {
                 <>
                   <Link
                     to="/ilan-ver"
-                    className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium touch-target"
+                    className="flex items-center gap-3 px-4 py-3 bg-red-50 text-red-700 rounded-lg font-medium touch-target"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <BriefcaseIcon className="h-5 w-5" />
+                    <Plus className="h-5 w-5" />
                     İlan Ver
                   </Link>
 
@@ -222,7 +197,7 @@ export function Header() {
                     className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors touch-target"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <BriefcaseIcon className="h-5 w-5 text-gray-400" />
+                    <Briefcase className="h-5 w-5 text-gray-400" />
                     İlanlarım
                   </Link>
 
@@ -236,15 +211,6 @@ export function Header() {
                       Admin Paneli
                     </Link>
                   )}
-
-                  <Link
-                    to="/hesap-ayarlari"
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors touch-target"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Settings className="h-5 w-5 text-gray-400" />
-                    Hesap Ayarları
-                  </Link>
 
                   <button
                     onClick={() => {
@@ -264,15 +230,15 @@ export function Header() {
                     className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors touch-target"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <UserCircle className="h-5 w-5 text-gray-400" />
+                    <User className="h-5 w-5 text-gray-400" />
                     Giriş Yap
                   </Link>
                   <Link
                     to="/kayit"
-                    className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium touch-target"
+                    className="flex items-center gap-3 px-4 py-3 bg-red-50 text-red-700 rounded-lg font-medium touch-target"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <UserCircle className="h-5 w-5" />
+                    <User className="h-5 w-5" />
                     Kayıt Ol
                   </Link>
                 </>
