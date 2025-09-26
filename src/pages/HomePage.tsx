@@ -41,20 +41,6 @@ export function HomePage() {
 
   const { filters, updateFilters, filteredJobs } = useJobFilters(jobs);
 
-  // Filtreleme hook'undan yeni fonksiyonları al
-  const { 
-    filters: filterState, 
-    updateFilters: updateFilterState, 
-    filteredJobs: processedJobs,
-    clearFilters,
-    hasActiveFilters,
-    isShowingSimilar
-  } = useJobFilters(jobs);
-
-  // Eski hook'ları yeni hook ile değiştir
-  const filters = filterState;
-  const updateFilters = updateFilterState;
-  const filteredJobs = processedJobs;
   useEffect(() => {
     // SEO meta tags
     generateMetaTags({
