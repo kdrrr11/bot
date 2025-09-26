@@ -105,24 +105,24 @@ export function BlogPage() {
       <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
         <div className="flex items-center gap-3 mb-4">
           <Sparkles className="h-6 w-6 text-blue-600" />
-          <h3 className="text-lg font-semibold text-blue-900">AI Destekli İçerik</h3>
+          <h3 className="text-lg font-semibold text-blue-900">Güncel İçerik Üretimi</h3>
         </div>
         <p className="text-blue-800 mb-4">
-          Blog yazılarımız Gemini 2.0 Flash AI tarafından güncel iş piyasası verileri analiz edilerek oluşturulmaktadır. 
-          Her gün yeni, özgün ve faydalı içerikler üretilir.
+          Platform editörlerimiz tarafından güncel iş piyasası verileri analiz edilerek özgün içerikler oluşturulmaktadır. 
+          Her gün yeni, güncel ve faydalı kariyer rehberleri yayınlanır.
         </p>
         <div className="flex flex-wrap gap-4 text-sm text-blue-700">
           <span className="flex items-center gap-1">
             <TrendingUp className="h-4 w-4" />
-            Güncel Piyasa Analizi
+            Güncel İş Piyasası Analizi
           </span>
           <span className="flex items-center gap-1">
             <User className="h-4 w-4" />
-            Kişiselleştirilmiş Tavsiyeler
+            Uzman Kariyer Tavsiyeleri
           </span>
           <span className="flex items-center gap-1">
             <MessageCircle className="h-4 w-4" />
-            Interaktif Yorumlar
+            Kullanıcı Etkileşimi
           </span>
         </div>
       </div>
