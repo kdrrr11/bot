@@ -102,7 +102,6 @@ export function SearchHero({
               </button>
             ))}
           </div>
-          </p>
         </div>
         
         {/* Search Form */}
