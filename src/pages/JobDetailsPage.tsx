@@ -28,8 +28,7 @@ export function JobDetailsPage() {
   useEffect(() => {
     // Scroll to top only for full page view
     if (!isModalView) {
-      title: `${job.title} - ${job.company} | ${job.location} İş İlanı 2025`,
-      description: `${job.title} iş ilanı - ${job.company}, ${job.location}. ${job.type} pozisyon. ${job.salary ? `Maaş: ${job.salary}. ` : ''}${job.description.substring(0, 120)}... Hemen başvuru yap!`,
+      window.scrollTo(0, 0);
     }
     
     const fetchJob = async () => {
