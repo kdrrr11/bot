@@ -109,16 +109,28 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
+              {/* Company Logo Placeholder */}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Building2 className="h-6 w-6 text-red-600" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm font-semibold text-gray-600 mb-1" itemProp="hiringOrganization">{job.company}</div>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <MapPin className="h-3 w-3" />
+                    <span itemProp="jobLocation">{job.location}</span>
+                    <span className="text-gray-300">•</span>
+                    <span itemProp="employmentType">{job.type}</span>
+                  </div>
+                </div>
+              </div>
+              
               <h2 
-                className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors leading-tight line-clamp-2 mb-2"
+                className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors leading-tight line-clamp-2 mb-3"
                 itemProp="title"
               >
                 {job.title}
               </h2>
-              <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                <Building2 className="h-4 w-4 text-gray-400" />
-                <span className="font-semibold" itemProp="hiringOrganization">{job.company}</span>
-              </div>
             </div>
 
             <div className="flex flex-col gap-2 flex-shrink-0 items-end">
@@ -152,21 +164,6 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
             </div>
           </div>
           
-          {/* Location and Job Type */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <MapPin className="h-4 w-4 text-gray-400" />
-              <span itemProp="jobLocation">{job.location}</span>
-            </div>
-            
-            <span 
-              className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-semibold"
-              itemProp="employmentType"
-            >
-              {job.type}
-            </span>
-          </div>
-          
           {/* Description Preview */}
           <div className="hidden sm:block">
             <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed" itemProp="description">
@@ -176,23 +173,34 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           
           {/* Bottom Row */}
           <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100">
-            <div className="flex items-center gap-3 text-xs text-gray-500">
-              <div className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
-                <span>{formatDate(job.createdAt)}</span>
-              </div>
-              <span className="text-gray-400">•</span>
-              <span>{getTimeAgo(job.createdAt)}</span>
+            <div className="flex items-center gap-2">
+              {/* Apply Button */}
+              <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg transition-colors">
+                Hemen Başvur
+              </button>
+              <button className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                <Bookmark className="h-4 w-4" />
+              </button>
             </div>
             
             {job.salary && (
-              <div className="flex items-center gap-1">
-                <DollarSign className="h-4 w-4 text-green-600" />
-                <span className="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">
+              <div className="flex items-center gap-1 bg-green-50 px-3 py-1 rounded-full">
+                <DollarSign className="h-3 w-3 text-green-600" />
+                <span className="text-sm font-bold text-green-600">
                   {job.salary}
                 </span>
               </div>
             )}
+          </div>
+          
+          {/* Time Info */}
+          <div className="flex items-center gap-3 text-xs text-gray-500 pt-2">
+            <div className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              <span>{formatDate(job.createdAt)}</span>
+            </div>
+            <span className="text-gray-400">•</span>
+            <span>{getTimeAgo(job.createdAt)}</span>
           </div>
           
           {/* Mobile Description */}
@@ -203,12 +211,12 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           </div>
 
           {/* Category Badge */}
-          <div className="flex items-center gap-2">
-            <span className="badge-category">
+          <div className="flex items-center gap-2 pt-2">
+            <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium">
               {job.category}
             </span>
             {job.subCategory && job.subCategory !== 'custom' && (
-              <span className="badge-category">
+              <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-md text-xs font-medium">
                 {job.subCategory}
               </span>
             )}

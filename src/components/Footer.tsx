@@ -10,23 +10,22 @@ export function Footer() {
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center shadow-lg">
                 <Briefcase className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">İŞİNOLSUN</h2>
-                <p className="text-sm text-gray-600">İş İlanları Platformu</p>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İŞİNOLSUN</h2>
+                <p className="text-sm text-gray-600 font-medium">Türkiye'nin #1 İş Platformu</p>
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-              <strong>İş İlanları 2025</strong> platformu, işverenler ve iş arayanları bir araya getiren güvenilir bir istihdam çözümüdür. 
-              <strong>50.000+</strong> güncel iş fırsatı ile Türkiye'nin en kapsamlı iş ilanları sitesi.
+              <strong>Türkiye'nin en hızlı büyüyen</strong> iş ilanları platformu. <strong>Dakikada 5 yeni ilan</strong> 
+              ekleniyor, <strong>50.000+</strong> aktif iş fırsatı ile işverenler ve iş arayanları güvenle buluşturuyor.
             </p>
             <p className="text-sm text-gray-600 leading-relaxed">
-              <strong>İstanbul iş ilanları</strong>, <strong>Ankara iş ilanları</strong>, <strong>İzmir iş ilanları</strong> 
-              ve tüm Türkiye'de <strong>mühendis</strong>, <strong>garson</strong>, <strong>kurye</strong>, 
-              <strong>resepsiyon görevlisi</strong>, <strong>aşçı yardımcısı</strong>, <strong>özel güvenlik</strong> 
-              pozisyonlarında kariyer fırsatları.
+              <strong>Eleman.net</strong>, <strong>Kariyer.net</strong> ve <strong>SecretCV</strong> alternatifi olarak 
+              <strong>%100 ücretsiz</strong> hizmet sunuyoruz. <strong>İstanbul</strong>, <strong>Ankara</strong>, 
+              <strong>İzmir</strong> başta olmak üzere 81 ilde <strong>günlük güncellenen</strong> iş fırsatları.
             </p>
           </div>
 
@@ -44,9 +43,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/sirketler" className="text-sm text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2 touch-target">
+                  <Building2 className="h-4 w-4" />
+                  Şirket Rehberi
+                </Link>
+              </li>
+              <li>
                 <Link to="/cv-olustur" className="text-sm text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2 touch-target">
                   <FileText className="h-4 w-4" />
                   CV Oluştur
+                </Link>
+              </li>
+              <li>
+                <Link to="/maas-rehberi" className="text-sm text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2 touch-target">
+                  <TrendingUp className="h-4 w-4" />
+                  Maaş Rehberi
                 </Link>
               </li>
               <li>
@@ -87,22 +98,23 @@ export function Footer() {
 
         {/* Stats Section */}
         <div className="border-t border-gray-200 pt-8 mb-8">
+          <h3 className="text-center text-lg font-bold text-gray-900 mb-6">Platform İstatistikleri</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="p-4 bg-red-50 rounded-xl">
-              <div className="text-2xl font-bold text-red-600">50K+</div>
-              <div className="text-xs text-gray-600">Aktif İlan</div>
+              <div className="text-2xl sm:text-3xl font-bold text-red-600">50K+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Aktif İlan</div>
             </div>
             <div className="p-4 bg-blue-50 rounded-xl">
-              <div className="text-2xl font-bold text-blue-600">81</div>
-              <div className="text-xs text-gray-600">İl Genelinde</div>
+              <div className="text-2xl sm:text-3xl font-bold text-blue-600">5/dk</div>
+              <div className="text-xs sm:text-sm text-gray-600">Yeni İlan</div>
             </div>
             <div className="p-4 bg-green-50 rounded-xl">
-              <div className="text-2xl font-bold text-green-600">25+</div>
-              <div className="text-xs text-gray-600">Farklı Sektör</div>
+              <div className="text-2xl sm:text-3xl font-bold text-green-600">25+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Sektör</div>
             </div>
             <div className="p-4 bg-purple-50 rounded-xl">
-              <div className="text-2xl font-bold text-purple-600">7/24</div>
-              <div className="text-xs text-gray-600">Güncel Akış</div>
+              <div className="text-2xl sm:text-3xl font-bold text-purple-600">81</div>
+              <div className="text-xs sm:text-sm text-gray-600">İl Kapsamı</div>
             </div>
           </div>
         </div>

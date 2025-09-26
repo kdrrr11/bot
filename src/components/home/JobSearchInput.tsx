@@ -21,22 +21,26 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
 
   // Popular search terms - İsinolsun.com inspired
   const popularSearchTerms = [
-    'Yazılım Geliştirici İş İlanları',
-    'Satış Temsilcisi İş İlanları',
-    'Muhasebeci İş İlanları',
-    'Öğretmen İş İlanları',
-    'Mühendis İş İlanları',
-    'Garson İş İlanları',
-    'Kurye İş İlanları',
-    'Resepsiyon Görevlisi İş İlanları',
-    'Aşçı Yardımcısı İş İlanları',
-    'Özel Güvenlik İş İlanları',
-    'Part Time İş İlanları',
-    'Remote İş İlanları',
-    'Yeni Mezun İş İlanları',
-    'Deneyimsiz İş İlanları',
-    'Evde Paketleme İş İlanları',
-    'Getir Kurye İş İlanları'
+    'Yazılım Geliştirici',
+    'Satış Temsilcisi', 
+    'Muhasebeci',
+    'Öğretmen',
+    'Mühendis',
+    'Garson',
+    'Kurye',
+    'Resepsiyon Görevlisi',
+    'Aşçı Yardımcısı',
+    'Özel Güvenlik',
+    'Part Time',
+    'Remote Çalışma',
+    'Yeni Mezun',
+    'Deneyimsiz',
+    'Evde Paketleme',
+    'Getir Kurye',
+    'Trendyol Kurye',
+    'Migros Kasiyer',
+    'BIM Personeli',
+    'A101 Çalışanı'
   ];
 
   useEffect(() => {

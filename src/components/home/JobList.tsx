@@ -64,8 +64,9 @@ export function JobList({ jobs, onJobDeleted, hasMore, loadMoreJobs, loadingMore
       <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900">
-              İş İlanları Listesi
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 flex items-center gap-2">
+              <Briefcase className="h-5 w-5 text-red-600" />
+              Güncel İş İlanları
             </h2>
             <p className="text-sm text-gray-600 mt-1">
               <span className="font-semibold text-red-600">{startIndex}-{endIndex}</span>
@@ -74,9 +75,35 @@ export function JobList({ jobs, onJobDeleted, hasMore, loadMoreJobs, loadingMore
               {' ilan'}
             </p>
           </div>
-          <div className="text-right">
+          <div className="text-right flex flex-col items-end gap-2">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm text-green-600 font-semibold">Canlı</span>
+            </div>
             <div className="text-2xl font-bold text-red-600">{totalItems}</div>
-            <div className="text-xs text-gray-500">Aktif İlan</div>
+            <div className="text-xs text-gray-500">Toplam İlan</div>
+          </div>
+        </div>
+        
+        {/* Quick Filters */}
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap gap-2">
+            <span className="text-xs text-gray-500 font-medium mb-2 w-full">🔥 Popüler Aramalar:</span>
+            {[
+              'Yazılım Geliştirici',
+              'Satış Temsilcisi', 
+              'Muhasebeci',
+              'Garson',
+              'Kurye',
+              'Güvenlik'
+            ].map((term) => (
+              <button
+                key={term}
+                className="px-3 py-1 bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 rounded-full text-xs font-medium transition-colors"
+              >
+                {term}
+              </button>
+            ))}
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Briefcase, TrendingUp, Users, Star, ArrowRight, FileText } from 'lucide-react';
+import { Search, MapPin, Briefcase, TrendingUp, Users, Star, ArrowRight, FileText, Filter, Bell, Bookmark } from 'lucide-react';
 import { JobSearchInput } from './JobSearchInput';
 import { CategorySearch } from './CategorySearch';
 import { LocationSearch } from './LocationSearch';
 import { Button } from '../ui/Button';
+import { Link } from 'react-router-dom';
 
 interface SearchHeroProps {
   onSearch: (search: string) => void;
@@ -33,33 +34,33 @@ export function SearchHero({
         {/* Hero Content */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            İş İlanları 2025
+            Türkiye'nin #1 İş İlanları Platformu
           </h1>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-6">
-            Türkiye'nin En Güncel İş Fırsatları
+            50.000+ Güncel İş İlanı • 7/24 Canlı Akış
           </h2>
           <p className="text-base sm:text-lg text-white/80 mb-6 max-w-4xl mx-auto leading-relaxed">
-            <strong className="text-white">6 Ocak 2025</strong> itibarıyla <strong className="text-white">50.000+</strong> aktif iş ilanı. 
-            İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları.
+            <strong className="text-white">Türkiye'nin en hızlı büyüyen</strong> iş ilanları platformu. 
+            <strong className="text-white">Dakikada 5 yeni ilan</strong> ekleniyor. İstanbul, Ankara, İzmir ve 81 ilde kariyer fırsatları.
           </p>
           
           {/* Quick Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-white">50K+</div>
-              <div className="text-xs sm:text-sm text-white/70">Güncel İlan</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">50K+</div>
+              <div className="text-xs sm:text-sm text-white/70">Aktif İlan</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-white">81</div>
-              <div className="text-xs sm:text-sm text-white/70">İl Genelinde</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">5/dk</div>
+              <div className="text-xs sm:text-sm text-white/70">Yeni İlan</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-white">25+</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">25+</div>
               <div className="text-xs sm:text-sm text-white/70">Farklı Sektör</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-white">7/24</div>
-              <div className="text-xs sm:text-sm text-white/70">Güncel Akış</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">81</div>
+              <div className="text-xs sm:text-sm text-white/70">İl Kapsamı</div>
             </div>
           </div>
         </div>
@@ -128,24 +129,19 @@ export function SearchHero({
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              to="/ilan-ver"
+              className="btn-primary flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+            >
+              <Briefcase className="h-5 w-5" />
+              ÜCRETSİZ İLAN VER
+            </Link>
             <Button
               onClick={() => window.location.href = '/cv-olustur'}
-              className="btn-secondary flex items-center justify-center gap-2"
+              className="btn-secondary flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
             >
               <FileText className="h-4 w-4" />
               Ücretsiz CV Oluştur
-            </Button>
-            <Button
-              onClick={() => {
-                const filtersElement = document.getElementById('filters');
-                if (filtersElement) {
-                  filtersElement.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="btn-outline flex items-center justify-center gap-2"
-            >
-              <Search className="h-4 w-4" />
-              Detaylı Arama
             </Button>
           </div>
           
@@ -155,19 +151,19 @@ export function SearchHero({
             <div className="flex justify-center items-center gap-4 text-xs text-gray-500">
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                SSL Güvenli
+                %100 Güvenli
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                KVKK Uyumlu
+                Hızlı Başvuru
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                Ücretsiz
+                %100 Ücretsiz
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                50K+ İlan
+                Günlük Güncelleme
               </span>
             </div>
           </div>

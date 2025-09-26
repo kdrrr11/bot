@@ -41,6 +41,12 @@ export function App() {
                 <Route path="/cv-olustur" element={<CVBuilderPage />} />
                 <Route path="/gizlilik-politikasi" element={<PrivacyPolicyPage />} />
                 
+                {/* New competitor-inspired routes */}
+                <Route path="/sirketler" element={<CategoryPage />} />
+                <Route path="/maas-rehberi" element={<CategoryPage />} />
+                <Route path="/kariyer-rehberi" element={<CategoryPage />} />
+                <Route path="/is-arama-rehberi" element={<CategoryPage />} />
+                
                 {/* Payment routes */}
                 <Route path="/odeme/basarili" element={<PaymentSuccessPage />} />
                 <Route path="/odeme/iptal" element={<PaymentCancelPage />} />

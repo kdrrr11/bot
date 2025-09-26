@@ -28,8 +28,8 @@ export function JobDetailsPage() {
   useEffect(() => {
     // Scroll to top only for full page view
     if (!isModalView) {
-      window.scrollTo(0, 0);
-    }
+      title: `${job.title} - ${job.company} | ${job.location} İş İlanı 2025`,
+      description: `${job.title} iş ilanı - ${job.company}, ${job.location}. ${job.type} pozisyon. ${job.salary ? `Maaş: ${job.salary}. ` : ''}${job.description.substring(0, 120)}... Hemen başvuru yap!`,
     
     const fetchJob = async () => {
       try {
@@ -152,17 +152,23 @@ export function JobDetailsPage() {
       keywords: [
         job.title.toLowerCase(),
         `${job.title.toLowerCase()} iş ilanı`,
+        `${job.title.toLowerCase()} ${job.location.toLowerCase()}`,
         `${job.location.toLowerCase()} ${job.title.toLowerCase()}`,
         `${job.company.toLowerCase()} iş ilanları`,
+        `${job.company.toLowerCase()} kariyer`,
         job.category, 
         job.type, 
         job.location, 
         'iş ilanı', 
         'kariyer',
         `${job.location} iş ilanları`,
+        `${job.location.toLowerCase()} iş fırsatları`,
         `${job.category} pozisyonu`,
         'güncel iş ilanları',
         'iş fırsatları',
+        'eleman ilanları',
+        `${job.location.toLowerCase()} eleman ilanları`,
+        `${job.category} iş ilanları ${job.location.toLowerCase()}`
         `${job.location.toLowerCase()} iş ara`,
         `${job.category} iş ilanları`
       ],

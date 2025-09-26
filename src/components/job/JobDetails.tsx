@@ -105,20 +105,25 @@ export function JobDetails({ job }: JobDetailsProps) {
           <div className="hidden lg:block bg-gradient-to-r from-red-50 to-blue-50 p-8">
             <div className="flex items-start justify-between gap-6 mb-6">
               <div className="flex-1 min-w-0">
+                {/* Company Logo */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-blue-100 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Building2 className="h-8 w-8 text-red-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl text-gray-800 font-bold mb-1" itemProp="hiringOrganization">
+                      {job.company}
+                    </h2>
+                    <p className="text-gray-600 flex items-center gap-2">
+                      <MapPin className="h-4 w-4" />
+                      {job.location} • {job.type}
+                    </p>
+                  </div>
+                </div>
+                
                 <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight" itemProp="title">
                   {job.title}
                 </h1>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-red-600 rounded-xl">
-                    <Building2 className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-xl text-gray-800 font-bold" itemProp="hiringOrganization">
-                      {job.company}
-                    </h2>
-                    <p className="text-gray-600">{job.location} • {job.type}</p>
-                  </div>
-                </div>
               </div>
               
               <div className="flex flex-col gap-3">
@@ -140,12 +145,24 @@ export function JobDetails({ job }: JobDetailsProps) {
 
           {/* Mobile Header */}
           <div className="lg:hidden p-4 border-b border-gray-100">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-blue-100 rounded-xl flex items-center justify-center">
+                <Building2 className="h-6 w-6 text-red-600" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg text-gray-700 font-bold" itemProp="hiringOrganization">
+                  {job.company}
+                </h2>
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {job.location}
+                </p>
+              </div>
+            </div>
+            
             <h1 className="text-xl font-bold text-gray-900 mb-2 leading-tight" itemProp="title">
               {job.title}
             </h1>
-            <h2 className="text-lg text-gray-700 mb-3" itemProp="hiringOrganization">
-              {job.company}
-            </h2>
             <div className="flex items-center gap-2 mb-3">
               <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
                 {job.category}
@@ -214,18 +231,19 @@ export function JobDetails({ job }: JobDetailsProps) {
             {/* SEO Content for City */}
             <section className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-xl border border-gray-200">
               <h3 className="text-lg font-bold text-gray-900 mb-4">
-                {job.location}'da {job.title} İş İmkanları
+                {job.location}'da {job.title} İş İlanları ve Kariyer Fırsatları
               </h3>
               <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                {job.location}'da <strong>{job.title}</strong> pozisyonu arayan adaylar için mükemmel bir fırsat. 
-                {job.company} şirketi, {job.location} merkezli olarak <strong>{job.category}</strong> sektöründe 
-                faaliyet göstermektedir. Bu pozisyon <strong>{job.type}</strong> çalışma şekli ile sunulmaktadır.
+                <strong>{job.location} {job.title} iş ilanları</strong> arasında öne çıkan bu pozisyon, 
+                <strong>{job.company}</strong> şirketi tarafından <strong>{job.category}</strong> sektöründe 
+                sunulmaktadır. <strong>{job.type}</strong> çalışma şekli ile kariyer fırsatı.
               </p>
               <p className="text-sm text-gray-700 leading-relaxed">
-                <strong>{job.location} iş ilanları</strong> arasında öne çıkan bu fırsat, 
-                <strong>{job.category}</strong> alanında kariyer yapmak isteyen profesyoneller için ideal. 
-                {job.salary && `Maaş aralığı ${job.salary} olarak belirlenmiştir.`}
-                Detaylı bilgi ve başvuru için aşağıdaki iletişim bilgilerini kullanabilirsiniz.
+                <strong>{job.location}'da {job.category} iş ilanları</strong> arayanlar için ideal fırsat. 
+                {job.salary && `<strong>Maaş aralığı: ${job.salary}</strong>. `}
+                <strong>{job.location} iş fırsatları</strong> ve <strong>{job.location} kariyer imkanları</strong> 
+                hakkında detaylı bilgi için iletişime geçin. <strong>Güncel {job.location} iş ilanları</strong> 
+                platformumuzda sürekli güncellenmektedir.
               </p>
             </section>
 

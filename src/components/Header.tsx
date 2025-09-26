@@ -35,12 +35,12 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-700 rounded-xl flex items-center justify-center shadow-lg">
                 <Briefcase className="h-5 w-5 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold text-gray-900">İŞİNOLSUN</span>
-                <div className="text-xs text-gray-500 hidden sm:block">İş İlanları</div>
+                <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İŞİNOLSUN</span>
+                <div className="text-xs text-gray-500 hidden sm:block font-medium">Türkiye'nin #1 İş Platformu</div>
               </div>
             </div>
           </Link>
@@ -51,14 +51,22 @@ export function Header() {
               <Search className="h-4 w-4" />
               İş İlanları
             </Link>
+            <Link to="/sirketler" className="nav-link">
+              <Building2 className="h-4 w-4" />
+              Şirketler
+            </Link>
             <Link to="/cv-olustur" className="nav-link">
               <FileText className="h-4 w-4" />
               CV Oluştur
             </Link>
+            <Link to="/maas-rehberi" className="nav-link">
+              <TrendingUp className="h-4 w-4" />
+              Maaş Rehberi
+            </Link>
             {user && (
-              <Link to="/ilan-ver" className="btn-primary ml-4">
+              <Link to="/ilan-ver" className="btn-primary ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl font-bold shadow-lg">
                 <Plus className="h-4 w-4" />
-                İlan Ver
+                ÜCRETSİZ İLAN VER
               </Link>
             )}
           </nav>
