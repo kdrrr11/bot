@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Briefcase, TrendingUp, Users, Star, ArrowRight } from 'lucide-react';
+import { Search, MapPin, Briefcase, TrendingUp, Users, Star, ArrowRight, FileText } from 'lucide-react';
 import { JobSearchInput } from './JobSearchInput';
 import { CategorySearch } from './CategorySearch';
 import { LocationSearch } from './LocationSearch';
