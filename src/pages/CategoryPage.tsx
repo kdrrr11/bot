@@ -1,10 +1,28 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useJobs } from '../hooks/useJobs';
+import { useJobFilters } from '../hooks/useJobFilters';
 import { JobList } from '../components/home/JobList';
 import { JobFilters } from '../components/home/JobFilters';
 
 export function CategoryPage() {
   const { category } = useParams();
+
+  // Fetch jobs with category filter
+  const { jobs, loading, error } = useJobs({ 
+    categoryFilter: category || 'all',
+    enableRealTime: true 
+  });
+
+  // Apply additional filters
+  const {
+    filteredJobs,
+    filters,
+    updateFilters,
+    clearFilters,
+    hasActiveFilters,
+    availableCategories
+  } = useJobFilters(jobs, { category: category || '' });
 
   // Kategori adını SEO dostu hale getir
   const getCategoryTitle = () => {
@@ -33,6 +51,23 @@ export function CategoryPage() {
       default: return `En güncel ${category} pozisyonlarını keşfedin`;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-16">
+        <p className="text-red-600">Bir hata oluştu: {error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <div className="bg-white rounded-lg shadow-sm p-6">
@@ -46,10 +81,16 @@ export function CategoryPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1">
-          <JobFilters />
+          <JobFilters
+            filters={filters}
+            onFilterChange={updateFilters}
+            onClearFilters={clearFilters}
+            hasActiveFilters={hasActiveFilters}
+            availableCategories={availableCategories}
+          />
         </div>
         <div className="lg:col-span-3">
-          <JobList category={category} />
+          <JobList jobs={filteredJobs} />
         </div>
       </div>
     </div>

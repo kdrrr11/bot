@@ -28,7 +28,7 @@ const experienceLevels = [
 
 export function JobFilters({ filters, onFilterChange, onClearFilters, hasActiveFilters, availableCategories }: JobFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const selectedCategory = jobCategories.find(c => c.id === filters.category);
+  const selectedCategory = jobCategories.find(c => c.id === filters?.category);
 
   return (
     <div id="filters" className="filter-section">

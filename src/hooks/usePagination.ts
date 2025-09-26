@@ -12,6 +12,9 @@ export function usePagination<T>(
 ) {
   const { itemsPerPage = 20, initialPage = 1 } = options;
   
+  // Ensure items is always an array
+  const safeItems = items || [];
+
   // Safe router hooks usage
   let searchParams: URLSearchParams;
   let setSearchParams: (params: URLSearchParams) => void;
@@ -32,9 +35,9 @@ export function usePagination<T>(
   
   // KRİTİK: Sayfalama öncesi ilanların sırasını kontrol et
   useEffect(() => {
-    if (items.length > 0) {
+    if (safeItems.length > 0) {
       // İlk 5 ilanın tarihlerini kontrol et
-      console.log('📊 Sayfalama öncesi ilk 5 ilan:', items.slice(0, 5).map(item => ({
+      console.log('📊 Sayfalama öncesi ilk 5 ilan:', safeItems.slice(0, 5).map(item => ({
         id: (item as any).id,
         title: (item as any).title,
         createdAt: new Date((item as any).createdAt).toLocaleString('tr-TR'),
@@ -42,7 +45,7 @@ export function usePagination<T>(
       })));
       
       // Son 5 ilanın tarihlerini kontrol et
-      console.log('📊 Sayfalama öncesi son 5 ilan:', items.slice(-5).map(item => ({
+      console.log('📊 Sayfalama öncesi son 5 ilan:', safeItems.slice(-5).map(item => ({
         id: (item as any).id,
         title: (item as any).title,
         createdAt: new Date((item as any).createdAt).toLocaleString('tr-TR'),
@@ -50,19 +53,19 @@ export function usePagination<T>(
       })));
       
       // Tarih sıralamasını kontrol et
-      const sortedCorrectly = items.every((item, index) => {
+      const sortedCorrectly = safeItems.every((item, index) => {
         if (index === 0) return true;
         const currentTimestamp = (item as any).createdAt || 0;
-        const prevTimestamp = (items[index - 1] as any).createdAt || 0;
+        const prevTimestamp = (safeItems[index - 1] as any).createdAt || 0;
         return currentTimestamp <= prevTimestamp; // Azalan sıralama (yeni->eski)
       });
       
       console.log(`📊 Sayfalama öncesi sıralama doğru mu: ${sortedCorrectly ? '✅ EVET' : '❌ HAYIR'}`);
     }
-  }, [items]);
+  }, [safeItems]);
   
   // Toplam sayfa sayısını hesapla
-  const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(safeItems.length / itemsPerPage));
   
   // Geçerli sayfa numarasını doğrula
   const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
@@ -71,8 +74,8 @@ export function usePagination<T>(
   const paginatedItems = useMemo(() => {
     const startIndex = (validCurrentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return items.slice(startIndex, endIndex);
-  }, [items, validCurrentPage, itemsPerPage]);
+    return safeItems.slice(startIndex, endIndex);
+  }, [safeItems, validCurrentPage, itemsPerPage]);
   
   // Sayfa değiştirme fonksiyonu
   const goToPage = (page: number) => {
@@ -144,12 +147,12 @@ export function usePagination<T>(
   
   // Başlangıç ve bitiş indeksleri
   const startIndex = (validCurrentPage - 1) * itemsPerPage + 1;
-  const endIndex = Math.min(validCurrentPage * itemsPerPage, items.length);
+  const endIndex = Math.min(validCurrentPage * itemsPerPage, safeItems.length);
   
   return {
     currentPage: validCurrentPage,
     totalPages,
-    totalItems: items.length,
+    totalItems: safeItems.length,
     paginatedItems,
     goToPage,
     getPageNumbers,
