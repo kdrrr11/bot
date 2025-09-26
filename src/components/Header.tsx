@@ -39,8 +39,8 @@ export function Header() {
                 <Briefcase className="h-5 w-5 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İŞİNOLSUN</span>
-                <div className="text-xs text-gray-500 hidden sm:block font-medium">Türkiye'nin #1 İş Platformu</div>
+                <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İşBuldum</span>
+                <div className="text-xs text-gray-500 hidden sm:block font-medium">Hızlı İş Bulma Platformu</div>
               </div>
             </div>
           </Link>

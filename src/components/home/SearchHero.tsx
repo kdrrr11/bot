@@ -34,13 +34,13 @@ export function SearchHero({
         {/* Hero Content */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            Türkiye'nin #1 İş İlanları Platformu
+            İşBuldum - Hızlı İş Bulma Platformu
           </h1>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-6">
             50.000+ Güncel İş İlanı • 7/24 Canlı Akış
           </h2>
           <p className="text-base sm:text-lg text-white/80 mb-6 max-w-4xl mx-auto leading-relaxed">
-            <strong className="text-white">Türkiye'nin en hızlı büyüyen</strong> iş ilanları platformu. 
+            <strong className="text-white">Türkiye'nin en hızlı</strong> iş bulma platformu. 
             <strong className="text-white">Dakikada 5 yeni ilan</strong> ekleniyor. İstanbul, Ankara, İzmir ve 81 ilde kariyer fırsatları.
           </p>
           

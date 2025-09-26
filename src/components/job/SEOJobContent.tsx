@@ -22,10 +22,10 @@ export function SEOJobContent({ jobData }: SEOJobContentProps) {
         <div className="text-center">
           <h2 className="text-responsive-xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
             <Briefcase className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-            İş İlanları ve Kariyer Fırsatları Rehberi {currentYear}
+            İşBuldum - İş İlanları ve Kariyer Fırsatları Rehberi {currentYear}
           </h2>
           <p className="text-responsive-sm text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            <strong>İş İlanları 2025</strong> - Türkiye'nin en kapsamlı iş ilanları platformunda <strong>50.000+</strong> güncel iş fırsatı sizi bekliyor. 
+            <strong>İşBuldum 2025</strong> - Türkiye'nin en hızlı iş bulma platformunda <strong>50.000+</strong> güncel iş fırsatı sizi bekliyor. 
             <strong>İş arama</strong> sürecinizden <strong>CV hazırlamaya</strong>, <strong>mülakat tekniklerinden</strong> <strong>kariyer planlamasına</strong> kadar 
             ihtiyacınız olan her şey burada. <strong>İstanbul iş ilanları</strong>, <strong>Ankara iş ilanları</strong>, <strong>İzmir iş ilanları</strong> ve 
             tüm Türkiye'de <strong>güncel iş fırsatları</strong>.
@@ -422,7 +422,7 @@ export function SEOJobContent({ jobData }: SEOJobContentProps) {
           <h2 className="text-responsive-lg font-bold mb-4">Hayalinizdeki İşe Bugün Başlayın!</h2>
           <p className="text-responsive-sm mb-6 opacity-90">
             <strong>50.000+</strong> güncel iş ilanı arasından size en uygun pozisyonu bulun. 
-            <strong>Ücretsiz CV oluşturma</strong> araçlarımızla profesyonel özgeçmişinizi hazırlayın.
+            <strong>İşBuldum</strong> ile hızlı iş bulun ve <strong>ücretsiz CV oluşturma</strong> araçlarımızla profesyonel özgeçmişinizi hazırlayın.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link 
@@ -445,7 +445,7 @@ export function SEOJobContent({ jobData }: SEOJobContentProps) {
         {/* Anahtar Kelime Yoğun Alt Metin */}
         <section className="text-center text-responsive-xs text-gray-600 leading-relaxed">
           <p className="mb-4">
-            <strong>İş İlanları 2025</strong> - Türkiye'nin en kapsamlı <strong>iş ilanları platformu</strong> olan İsilanlarim.org'da 
+            <strong>İşBuldum 2025</strong> - Türkiye'nin en hızlı <strong>iş bulma platformu</strong> olan İşBuldum'da 
             <strong> iş ara</strong>, <strong>iş bul</strong>, <strong>kariyer fırsatları</strong> keşfet ve <strong>ücretsiz iş ilanı ver istanbul</strong> seçeneğiyle hemen ilan yayınla. 
             <strong>İş ilanı ver</strong>, <strong>eleman ara</strong>, <strong>personel bul</strong> seçenekleriyle işverenler ve iş arayanları buluşturuyoruz. 
             <strong>Güncel iş ilanları</strong>, <strong>yeni iş fırsatları</strong>, <strong>part time iş ilanları</strong>, <strong>tam zamanlı iş ilanları</strong>, 

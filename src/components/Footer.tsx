@@ -14,12 +14,12 @@ export function Footer() {
                 <Briefcase className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İŞİNOLSUN</h2>
-                <p className="text-sm text-gray-600 font-medium">Türkiye'nin #1 İş Platformu</p>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">İşBuldum</h2>
+                <p className="text-sm text-gray-600 font-medium">Hızlı İş Bulma Platformu</p>
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-              <strong>Türkiye'nin en hızlı büyüyen</strong> iş ilanları platformu. <strong>Dakikada 5 yeni ilan</strong> 
+              <strong>Türkiye'nin en hızlı</strong> iş bulma platformu. <strong>Dakikada 5 yeni ilan</strong> 
               ekleniyor, <strong>50.000+</strong> aktif iş fırsatı ile işverenler ve iş arayanları güvenle buluşturuyor.
             </p>
             <p className="text-sm text-gray-600 leading-relaxed">
@@ -143,7 +143,7 @@ export function Footer() {
             {/* Copyright */}
             <div className="text-center lg:text-right">
               <p className="text-sm text-gray-600 mb-2">
-                © 2025 <strong>İŞİNOLSUN</strong> - Bilwin Inc / Kadir A. Tüm hakları saklıdır.
+                © 2025 <strong>İşBuldum</strong> - Bilwin Inc / Kadir A. Tüm hakları saklıdır.
               </p>
               <div className="flex items-center justify-center lg:justify-end gap-4 text-xs text-gray-500">
                 <Link to="/gizlilik-politikasi" className="hover:text-red-600 transition-colors touch-target">

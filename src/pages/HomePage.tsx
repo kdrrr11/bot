@@ -44,8 +44,8 @@ export function HomePage() {
   useEffect(() => {
     // SEO meta tags
     generateMetaTags({
-      title: 'İş İlanları 2025 - Türkiye\'nin En Güncel İş Fırsatları',
-      description: 'Türkiye\'nin en kapsamlı iş ilanları platformu. 6 Ocak 2025 itibarıyla 50.000+ aktif iş ilanı. İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları. Hemen başvurun, kariyerinizi şekillendirin!',
+      title: 'İş İlanları 2025 - İşBuldum Hızlı İş Bulma Platformu',
+      description: 'İşBuldum ile hızlı iş bulun! 6 Ocak 2025 itibarıyla 50.000+ aktif iş ilanı. İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları. Hemen başvurun, kariyerinizi şekillendirin!',
       keywords: [
         'iş ilanları', 'güncel iş ilanları', 'iş fırsatları', 'eleman ilanları', 'kariyer', 'iş ilanları 2025',
         'istanbul iş ilanları', 'ankara iş ilanları', 'izmir iş ilanları',
