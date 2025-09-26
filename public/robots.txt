@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Allow critical pages for SEO
+# Kritik SEO sayfaları - Google indexing için optimize edilmiş
 Allow: /is-ilanlari/
 Allow: /ilan/
 Allow: /cv-olustur
@@ -14,51 +14,79 @@ Allow: /antalya-is-ilanlari
 Allow: /part-time-is-ilanlari
 Allow: /remote-is-ilanlari
 Allow: /yeni-mezun-is-ilanlari
+Allow: /muhendis-is-ilanlari
+Allow: /garson-is-ilanlari
+Allow: /kurye-is-ilanlari
+Allow: /resepsiyon-gorevlisi-is-ilanlari
+Allow: /asci-yardimcisi-is-ilanlari
+Allow: /ozel-guvenlik-is-ilanlari
 
-# Prevent duplicate content and admin pages
+# Admin ve kullanıcı sayfalarını engelle
 Disallow: /giris
 Disallow: /kayit
 Disallow: /sifremi-unuttum
 Disallow: /hesap-ayarlari
 Disallow: /ilanlarim
+Disallow: /ilan-ver
+Disallow: /ilan-duzenle/
+Disallow: /ilan-one-cikar/
 Disallow: /admin
 Disallow: /api/
 Disallow: /temp/
 Disallow: /_next/
 Disallow: /node_modules/
+Disallow: /odeme/
+Disallow: /favoriler
 
-# Allow AdSense crawler
+# Duplicate content engelleme
+Disallow: /*?*
+Disallow: /*#*
+Disallow: /search?*
+Disallow: /filter?*
+
+# AdSense crawler'a izin ver
 User-agent: Mediapartners-Google
 Allow: /
 
-# Allow Google Display Ads Bot
+# Google Display Ads Bot'a izin ver
 User-agent: Google-Display-Ads-Bot
 Allow: /
 
-# Allow Googlebot
+# Googlebot için özel ayarlar
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Allow Bingbot
+# Bingbot için özel ayarlar
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Allow Yandex
+# Yandex için özel ayarlar
 User-agent: YandexBot
 Allow: /
 Crawl-delay: 1
 
-# Allow other search engines
+# Diğer arama motorları
 User-agent: DuckDuckBot
 Allow: /
 
-# Sitemap locations
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap konumları - Google Search Console için
 Sitemap: https://isilanlarim.org/sitemap.xml
 Sitemap: https://isilanlarim.org/sitemap-jobs.xml
 Sitemap: https://isilanlarim.org/sitemap-static.xml
 Sitemap: https://isilanlarim.org/sitemap-pages.xml
+Sitemap: https://isilanlarim.org/sitemap-categories.xml
+Sitemap: https://isilanlarim.org/sitemap-cities.xml
 
 # Host directive
 Host: https://isilanlarim.org
