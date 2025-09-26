@@ -39,7 +39,14 @@ export function HomePage() {
     limit: 20 // Sayfa başına 20 ilan
   });
 
-  const { filters, updateFilters, filteredJobs } = useJobFilters(jobs);
+  const { 
+    filters, 
+    updateFilters, 
+    filteredJobs, 
+    clearFilters, 
+    hasActiveFilters, 
+    isShowingSimilar 
+  } = useJobFilters(jobs);
 
   useEffect(() => {
     // SEO meta tags
