@@ -30,6 +30,7 @@ export function JobDetailsPage() {
     if (!isModalView) {
       title: `${job.title} - ${job.company} | ${job.location} İş İlanı 2025`,
       description: `${job.title} iş ilanı - ${job.company}, ${job.location}. ${job.type} pozisyon. ${job.salary ? `Maaş: ${job.salary}. ` : ''}${job.description.substring(0, 120)}... Hemen başvuru yap!`,
+    }
     
     const fetchJob = async () => {
       try {
