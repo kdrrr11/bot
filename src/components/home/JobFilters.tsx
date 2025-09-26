@@ -69,21 +69,25 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
-                Popüler Kategoriler
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                🔥 Popüler İş Kategorileri
               </label>
               <select
                 value={filters.category}
                 onChange={(e) => onFilterChange({ category: e.target.value, subCategory: '' })}
-                className="form-input w-full"
+                className="form-input w-full text-sm"
               >
                 <option value="">Tüm Kategoriler</option>
-                <option value="teknoloji">Mühendis İş İlanları</option>
-                <option value="hizmet">Garson İş İlanları</option>
-                <option value="lojistik">Kurye İş İlanları</option>
-                <option value="turizm">Resepsiyon Görevlisi İlanları</option>
-                <option value="hizmet">Aşçı Yardımcısı İlanları</option>
-                <option value="guvenlik">Özel Güvenlik İlanları</option>
+                <option value="teknoloji">🔧 Mühendis İş İlanları</option>
+                <option value="teknoloji">💻 Yazılım Geliştirici İş İlanları</option>
+                <option value="hizmet">🍽️ Garson İş İlanları</option>
+                <option value="lojistik">🚚 Kurye İş İlanları</option>
+                <option value="turizm">🏨 Resepsiyon Görevlisi İlanları</option>
+                <option value="hizmet">👨‍🍳 Aşçı Yardımcısı İlanları</option>
+                <option value="guvenlik">🛡️ Özel Güvenlik İlanları</option>
+                <option value="finans">💰 Muhasebeci İş İlanları</option>
+                <option value="egitim">📚 Öğretmen İş İlanları</option>
+                <option value="saglik">🏥 Hemşire İş İlanları</option>
                 {jobCategories.map(category => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -94,8 +98,8 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
 
             {selectedCategory && (
               <div>
-                <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
-                  Alt Kategori
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  📋 Alt Kategori
                 </label>
                 <select
                   value={filters.subCategory}
@@ -113,8 +117,8 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
             )}
 
             <div>
-              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
-                Deneyim Seviyesi
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                🎯 Deneyim Seviyesi
               </label>
               <select
                 value={filters.experienceLevel}
@@ -131,8 +135,8 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
             </div>
 
             <div>
-              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
-                Sıralama
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                📊 Sıralama
               </label>
               <select
                 value={filters.sortBy}

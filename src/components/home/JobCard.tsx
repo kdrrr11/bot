@@ -4,6 +4,10 @@ import {
   Sparkles,
   Zap,
   X,
+  MapPin,
+  Building2,
+  Clock,
+  DollarSign
 } from 'lucide-react';
 import {
   isToday,
@@ -87,99 +91,130 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
   };
 
   return (
-    <article className="job-card group cursor-pointer relative touch-manipulation" onClick={handleJobClick}>
+    <article 
+      className={`job-card group cursor-pointer relative touch-manipulation transition-all duration-300 hover:shadow-lg ${
+        isPremium ? 'ring-2 ring-blue-300 bg-gradient-to-r from-blue-50 via-white to-purple-50' : 'hover:border-blue-200'
+      }`} 
+      onClick={handleJobClick}
+      itemScope 
+      itemType="https://schema.org/JobPosting"
+    >
       {/* Premium Background */}
       {isPremium && (
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 rounded-lg border-2 border-blue-300"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 rounded-t-lg"></div>
       )}
       
       <div className="relative z-10">
-      {/* Admin Silme Butonu */}
-      {isAdmin && (
-        <button
-          onClick={handleDeleteClick}
-          disabled={isDeleting}
-          className="absolute top-2 right-2 z-20 p-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-colors touch-target"
-          title="İlanı Sil"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      )}
+        {/* Admin Silme Butonu */}
+        {isAdmin && (
+          <button
+            onClick={handleDeleteClick}
+            disabled={isDeleting}
+            className="absolute top-3 right-3 z-20 p-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-colors touch-target shadow-sm"
+            title="İlanı Sil"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
 
-      {/* Mobil Optimized Layout */}
-      <div className="space-y-3">
-        {/* Header Row */}
-        <div className="flex items-start justify-between gap-3">
-          <h2 className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight flex-1 line-clamp-2">
-            {job.title}
-          </h2>
+        {/* Mobil Optimized Layout */}
+        <div className="space-y-4">
+          {/* Header Row */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <h2 
+                className="text-base sm:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight line-clamp-2 mb-2"
+                itemProp="title"
+              >
+                {job.title}
+              </h2>
+              <div className="flex items-center gap-2 text-sm text-gray-600 mb-1">
+                <Building2 className="h-4 w-4 text-gray-400" />
+                <span className="font-medium" itemProp="hiringOrganization">{job.company}</span>
+              </div>
+            </div>
 
-          <div className="flex flex-wrap gap-1 flex-shrink-0 items-start">
-            {/* Premium rozet */}
-            {isPremium && premiumPackage && (
-              <PremiumBadge packageType={premiumPackage} />
-            )}
+            <div className="flex flex-col gap-1 flex-shrink-0 items-end">
+              {/* Premium rozet */}
+              {isPremium && premiumPackage && (
+                <PremiumBadge packageType={premiumPackage} />
+              )}
+              
+              {/* BUGÜN ETİKETİ */}
+              {isTodayJob(job.createdAt) && (
+                <span className="px-3 py-1 text-xs font-bold bg-red-500 text-white rounded-full flex items-center gap-1 animate-pulse shadow-md">
+                  <Zap className="h-3 w-3" />
+                  BUGÜN
+                </span>
+              )}
+              {/* DÜN ETİKETİ */}
+              {isYesterdayJob(job.createdAt) && (
+                <span className="px-3 py-1 text-xs font-bold bg-orange-500 text-white rounded-full flex items-center gap-1 shadow-md">
+                  <Sparkles className="h-3 w-3" />
+                  DÜN
+                </span>
+              )}
+              {/* YENİ ETİKETİ */}
+              {isRecentJob(job.createdAt) && (
+                <span className="px-3 py-1 text-xs font-bold bg-green-500 text-white rounded-full flex items-center gap-1 shadow-md">
+                  <Sparkles className="h-3 w-3" />
+                  YENİ
+                </span>
+              )}
+            </div>
+          </div>
+          
+          {/* Location and Job Type */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <MapPin className="h-4 w-4 text-gray-400" />
+              <span itemProp="jobLocation">{job.location}</span>
+            </div>
             
-            {/* BUGÜN ETİKETİ */}
-            {isTodayJob(job.createdAt) && (
-              <span className="px-2 py-1 text-xs font-bold bg-red-500 text-white rounded-full flex items-center gap-1 animate-pulse shadow-sm">
-                <Zap className="h-3 w-3" />
-                BUGÜN
-              </span>
-            )}
-            {/* DÜN ETİKETİ */}
-            {isYesterdayJob(job.createdAt) && (
-              <span className="px-2 py-1 text-xs font-bold bg-orange-500 text-white rounded-full flex items-center gap-1 shadow-sm">
-                <Sparkles className="h-3 w-3" />
-                DÜN
-              </span>
-            )}
-            {/* YENİ ETİKETİ */}
-            {isRecentJob(job.createdAt) && (
-              <span className="px-2 py-1 text-xs font-bold bg-green-500 text-white rounded-full flex items-center gap-1 shadow-sm">
-                <Sparkles className="h-3 w-3" />
-                YENİ
-              </span>
-            )}
-          </div>
-        </div>
-        
-        {/* Company and Location */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
-            <span className="font-medium">{job.company}</span>
-            <span className="text-gray-400">•</span>
-            <span>{job.location}</span>
-          </div>
-          
-          {/* Job Type Badge */}
-          <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full font-medium">
-            {job.type}
-          </span>
-        </div>
-        
-        {/* Salary and Date */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <span>{formatDate(job.createdAt)}</span>
-            <span className="text-gray-400">•</span>
-            <span>{getTimeAgo(job.createdAt)}</span>
-          </div>
-          
-          {job.salary && (
-            <span className="text-xs sm:text-sm font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">
-              {job.salary}
+            {/* Job Type Badge */}
+            <span 
+              className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full font-medium"
+              itemProp="employmentType"
+            >
+              {job.type}
             </span>
-          )}
+          </div>
+          
+          {/* Description Preview */}
+          <div className="hidden sm:block">
+            <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed" itemProp="description">
+              {job.description}
+            </p>
+          </div>
+          
+          {/* Bottom Row - Salary and Date */}
+          <div className="flex items-center justify-between gap-3 pt-2 border-t border-gray-100">
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                <span>{formatDate(job.createdAt)}</span>
+              </div>
+              <span className="text-gray-400">•</span>
+              <span>{getTimeAgo(job.createdAt)}</span>
+            </div>
+            
+            {job.salary && (
+              <div className="flex items-center gap-1">
+                <DollarSign className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                  {job.salary}
+                </span>
+              </div>
+            )}
+          </div>
+          
+          {/* Mobile Description Preview */}
+          <div className="sm:hidden">
+            <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+              {job.description}
+            </p>
+          </div>
         </div>
-        
-        {/* Description Preview - Mobile Only */}
-        <div className="sm:hidden">
-          <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
-            {job.description}
-          </p>
-        </div>
-      </div>
       </div>
     </article>
   );
