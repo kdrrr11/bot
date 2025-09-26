@@ -22,9 +22,16 @@ import { PaymentSuccessPage } from './pages/PaymentSuccessPage';
 import { PaymentCancelPage } from './pages/PaymentCancelPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { CityJobsPage } from './pages/CityJobsPage';
+import { BlogPage } from './pages/BlogPage';
+import { BlogPostPage } from './pages/BlogPostPage';
+import { LiveSupportWidget } from './components/support/LiveSupportWidget';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { useDailyBlogScheduler } from './hooks/useDailyBlogScheduler';
 
 export function App() {
+  // Günlük blog scheduler'ı başlat
+  useDailyBlogScheduler();
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -41,11 +48,15 @@ export function App() {
                 <Route path="/cv-olustur" element={<CVBuilderPage />} />
                 <Route path="/gizlilik-politikasi" element={<PrivacyPolicyPage />} />
                 
+                {/* Blog routes */}
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/kariyer-rehberi" element={<BlogPage />} />
+                <Route path="/is-arama-rehberi" element={<BlogPage />} />
+                
                 {/* New competitor-inspired routes */}
                 <Route path="/sirketler" element={<CategoryPage />} />
                 <Route path="/maas-rehberi" element={<CategoryPage />} />
-                <Route path="/kariyer-rehberi" element={<CategoryPage />} />
-                <Route path="/is-arama-rehberi" element={<CategoryPage />} />
                 
                 {/* Payment routes */}
                 <Route path="/odeme/basarili" element={<PaymentSuccessPage />} />
@@ -166,6 +177,9 @@ export function App() {
             </div>
           </main>
           <Footer />
+          
+          {/* Live Support Widget */}
+          <LiveSupportWidget />
         </div>
       </AuthProvider>
     </BrowserRouter>

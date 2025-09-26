@@ -59,6 +59,10 @@ export function Header() {
               <FileText className="h-4 w-4" />
               CV Oluştur
             </Link>
+            <Link to="/blog" className="nav-link">
+              <MessageCircle className="h-4 w-4" />
+              Blog
+            </Link>
             <Link to="/maas-rehberi" className="nav-link">
               <TrendingUp className="h-4 w-4" />
               Maaş Rehberi
@@ -187,6 +191,15 @@ export function Header() {
               >
                 <FileText className="h-5 w-5 text-gray-400" />
                 CV Oluştur
+              </Link>
+
+              <Link
+                to="/blog"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors touch-target"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <MessageCircle className="h-5 w-5 text-gray-400" />
+                Blog & Rehber
               </Link>
 
               {user ? (

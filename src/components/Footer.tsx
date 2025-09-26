@@ -55,6 +55,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/blog" className="text-sm text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2 touch-target">
+                  <MessageCircle className="h-4 w-4" />
+                  Blog & Rehber
+                </Link>
+              </li>
+              <li>
                 <Link to="/maas-rehberi" className="text-sm text-gray-600 hover:text-red-600 transition-colors flex items-center gap-2 touch-target">
                   <TrendingUp className="h-4 w-4" />
                   Maaş Rehberi
