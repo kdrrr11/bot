@@ -33,34 +33,34 @@ export function SearchHero({
       <div className="relative max-w-6xl mx-auto">
         {/* Hero Content */}
         <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-            İşBuldum - Hızlı İş Bulma Platformu
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight animate-fade-in">
+            ⚡ İşBuldum - Türkiye'nin En Hızlı İş Bulma Platformu
           </h1>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-6">
-            50.000+ Güncel İş İlanı • 7/24 Canlı Akış
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-6 animate-slide-up">
+            🔥 50.000+ Güncel İş İlanı • Dakikada 5 Yeni Fırsat • 7/24 Canlı Akış
           </h2>
-          <p className="text-base sm:text-lg text-white/80 mb-6 max-w-4xl mx-auto leading-relaxed">
-            <strong className="text-white">Türkiye'nin en hızlı</strong> iş bulma platformu. 
-            <strong className="text-white">Dakikada 5 yeni ilan</strong> ekleniyor. İstanbul, Ankara, İzmir ve 81 ilde kariyer fırsatları.
+          <p className="text-base sm:text-lg text-white/80 mb-6 max-w-4xl mx-auto leading-relaxed animate-fade-in">
+            💼 <strong className="text-white">DME Group, Getir, Dominos, Burger King</strong> gibi büyük şirketlerin ilanları! 
+            🚀 <strong className="text-white">Dakikada 5 yeni ilan</strong> ekleniyor. 💰 <strong className="text-white">Yüksek maaşlı pozisyonlar</strong> İstanbul, Ankara, İzmir ve 81 ilde.
           </p>
           
           {/* Quick Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto animate-slide-up">
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">50K+</div>
-              <div className="text-xs sm:text-sm text-white/70">Aktif İlan</div>
+              <div className="text-xs sm:text-sm text-white/70">🔥 Aktif İlan</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">5/dk</div>
-              <div className="text-xs sm:text-sm text-white/70">Yeni İlan</div>
+              <div className="text-xs sm:text-sm text-white/70">⚡ Yeni İlan</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">25+</div>
-              <div className="text-xs sm:text-sm text-white/70">Farklı Sektör</div>
+              <div className="text-xs sm:text-sm text-white/70">💼 Farklı Sektör</div>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-white animate-pulse">81</div>
-              <div className="text-xs sm:text-sm text-white/70">İl Kapsamı</div>
+              <div className="text-xs sm:text-sm text-white/70">🏙️ İl Kapsamı</div>
             </div>
           </div>
         </div>

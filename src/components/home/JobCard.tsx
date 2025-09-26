@@ -111,26 +111,50 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
             <div className="flex-1 min-w-0">
               {/* Company Logo Placeholder */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                   <Building2 className="h-6 w-6 text-red-600" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm font-semibold text-gray-600 mb-1" itemProp="hiringOrganization">{job.company}</div>
+                  <div className="text-sm font-bold text-gray-700 mb-1" itemProp="hiringOrganization">{job.company}</div>
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <MapPin className="h-3 w-3" />
                     <span itemProp="jobLocation">{job.location}</span>
                     <span className="text-gray-300">•</span>
                     <span itemProp="employmentType">{job.type}</span>
+                    {job.salary && (
+                      <>
+                        <span className="text-gray-300">•</span>
+                        <span className="text-green-600 font-bold">{job.salary}</span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
               
               <h2 
-                className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors leading-tight line-clamp-2 mb-3"
+                className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors leading-tight line-clamp-2 mb-3 cursor-pointer"
                 itemProp="title"
               >
                 {job.title}
               </h2>
+              
+              {/* CTR artırıcı özellikler */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                {job.salary && (
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                    <DollarSign className="h-3 w-3" />
+                    {job.salary}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">
+                  <Clock className="h-3 w-3" />
+                  HEMEN BAŞVUR
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
+                  <Star className="h-3 w-3" />
+                  SGK + PRİM
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col gap-2 flex-shrink-0 items-end">
@@ -144,21 +168,21 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
               
               {/* Date Badges */}
               {isTodayJob && (
-                <span className="px-3 py-1 text-xs font-bold bg-red-500 text-white rounded-full flex items-center gap-1 animate-pulse shadow-md">
+                <span className="px-3 py-1 text-xs font-bold bg-red-500 text-white rounded-full flex items-center gap-1 animate-pulse shadow-lg">
                   <Zap className="h-3 w-3" />
-                  BUGÜN
+                  🔥 BUGÜN
                 </span>
               )}
               {isYesterdayJob && (
-                <span className="px-3 py-1 text-xs font-bold bg-orange-500 text-white rounded-full flex items-center gap-1 shadow-md">
+                <span className="px-3 py-1 text-xs font-bold bg-orange-500 text-white rounded-full flex items-center gap-1 shadow-lg">
                   <Sparkles className="h-3 w-3" />
-                  DÜN
+                  ⚡ DÜN
                 </span>
               )}
               {isRecentJob && (
-                <span className="px-3 py-1 text-xs font-bold bg-green-500 text-white rounded-full flex items-center gap-1 shadow-md">
+                <span className="px-3 py-1 text-xs font-bold bg-green-500 text-white rounded-full flex items-center gap-1 shadow-lg">
                   <Star className="h-3 w-3" />
-                  YENİ
+                  ✨ YENİ
                 </span>
               )}
             </div>
@@ -166,7 +190,7 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           
           {/* Description Preview */}
           <div className="hidden sm:block">
-            <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed" itemProp="description">
+            <p className="text-sm text-gray-700 line-clamp-2 leading-relaxed font-medium" itemProp="description">
               {job.description}
             </p>
           </div>
@@ -175,22 +199,30 @@ export function JobCard({ job, onDeleted }: JobCardProps) {
           <div className="flex items-center justify-between gap-3 pt-3 border-t border-gray-100">
             <div className="flex items-center gap-2">
               {/* Apply Button */}
-              <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold rounded-lg transition-colors">
-                Hemen Başvur
+              <button className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-sm font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                🚀 HEMEN BAŞVUR
               </button>
-              <button className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+              <button className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors shadow-sm">
                 <Bookmark className="h-4 w-4" />
               </button>
             </div>
             
-            {job.salary && (
-              <div className="flex items-center gap-1 bg-green-50 px-3 py-1 rounded-full">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-full">
+                <Clock className="h-3 w-3 text-blue-600" />
+                <span className="text-xs font-bold text-blue-600">
+                  ACİL
+                </span>
+              </div>
+              {job.salary && (
+              <div className="flex items-center gap-1 bg-green-50 px-3 py-1 rounded-full shadow-sm">
                 <DollarSign className="h-3 w-3 text-green-600" />
-                <span className="text-sm font-bold text-green-600">
+                <span className="text-sm font-bold text-green-700">
                   {job.salary}
                 </span>
               </div>
-            )}
+              )}
+            </div>
           </div>
           
           {/* Time Info */}

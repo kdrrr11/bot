@@ -172,17 +172,31 @@ export async function onJobAdded(jobData: JobListing): Promise<void> {
     // Sitemap'i güncelle
     await updateSitemap();
 
-    // Google'a hemen bildir
-    const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(
-      SITE_URL + '/sitemap-jobs.xml'
-    )}`;
+    // Google'a hemen bildir - Çoklu sitemap ping
+    const sitemapUrls = [
+      `${SITE_URL}/sitemap.xml`,
+      `${SITE_URL}/sitemap-jobs.xml`,
+      `${SITE_URL}/sitemap-static.xml`
+    ];
 
-    try {
-      await fetch(googlePingUrl, { method: 'GET', mode: 'no-cors' });
-      console.log("Google'a yeni ilan bildirimi gönderildi");
-    } catch (pingError) {
-      console.error('Google ping hatası:', pingError);
-    }
+    const pingPromises = sitemapUrls.map(async (url) => {
+      try {
+        const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(url)}`;
+        const bingPingUrl = `https://www.bing.com/ping?sitemap=${encodeURIComponent(url)}`;
+        
+        await Promise.all([
+          fetch(googlePingUrl, { method: 'GET', mode: 'no-cors' }),
+          fetch(bingPingUrl, { method: 'GET', mode: 'no-cors' })
+        ]);
+        
+        console.log(`Sitemap ping gönderildi: ${url}`);
+      } catch (pingError) {
+        console.error(`Ping hatası (${url}):`, pingError);
+      }
+    });
+
+    await Promise.allSettled(pingPromises);
+    console.log("Tüm arama motorlarına yeni ilan bildirimi gönderildi");
 
     console.log('Yeni ilan sitemap güncelleme tamamlandı');
   } catch (error) {

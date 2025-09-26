@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Kritik SEO sayfaları - Google indexing için optimize edilmiş
+# Kritik SEO sayfaları - Google Search Console verilerine göre optimize edilmiş
 Allow: /is-ilanlari/
 Allow: /ilan/
 Allow: /cv-olustur
@@ -20,6 +20,18 @@ Allow: /kurye-is-ilanlari
 Allow: /resepsiyon-gorevlisi-is-ilanlari
 Allow: /asci-yardimcisi-is-ilanlari
 Allow: /ozel-guvenlik-is-ilanlari
+Allow: /dme-group-cagri-merkezi
+Allow: /getir-kurye-is-ilanlari
+Allow: /dominos-pizza-is-ilanlari
+Allow: /burger-king-is-ilanlari
+Allow: /yuksek-maasli-is-ilanlari
+Allow: /dolgun-maasli-is-ilanlari
+Allow: /home-office-cagri-merkezi
+Allow: /evde-paketleme-is-ilanlari
+Allow: /bahcelievler-kurye-is-ilanlari
+Allow: /akkuyu-nukleer-santral-is-ilanlari
+Allow: /yatili-is-ilanlari
+Allow: /cagri-merkezi-is-ilanlari
 
 # Admin ve kullanıcı sayfalarını engelle
 Disallow: /giris
@@ -38,11 +50,14 @@ Disallow: /node_modules/
 Disallow: /odeme/
 Disallow: /favoriler
 
-# Duplicate content engelleme
+# Duplicate content engelleme - Google Search Console sorunlarına göre
 Disallow: /*?*
 Disallow: /*#*
 Disallow: /search?*
 Disallow: /filter?*
+Disallow: /*utm_*
+Disallow: /*ref=*
+Disallow: /*source=*
 
 # AdSense crawler'a izin ver
 User-agent: Mediapartners-Google
@@ -52,20 +67,20 @@ Allow: /
 User-agent: Google-Display-Ads-Bot
 Allow: /
 
-# Googlebot için özel ayarlar
+# Googlebot için özel ayarlar - Performans optimizasyonu
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
 
-# Bingbot için özel ayarlar
+# Bingbot için özel ayarlar - Performans optimizasyonu
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
 
-# Yandex için özel ayarlar
+# Yandex için özel ayarlar - Performans optimizasyonu
 User-agent: YandexBot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
 
 # Diğer arama motorları
 User-agent: DuckDuckBot

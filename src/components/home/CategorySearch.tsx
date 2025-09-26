@@ -14,14 +14,14 @@ export function CategorySearch({ onCategorySelect, availableCategories }: Catego
 
   // Popüler arama terimleri
   const popularSearchTerms = [
-    { id: 'teknoloji', name: 'Mühendis İş İlanları' },
-    { id: 'hizmet', name: 'Garson İş İlanları' },
-    { id: 'lojistik', name: 'Kurye İş İlanları' },
-    { id: 'turizm', name: 'Resepsiyon İş İlanları' },
-    { id: 'hizmet', name: 'Aşçı Yardımcısı İş İlanları' },
-    { id: 'guvenlik', name: 'Özel Güvenlik İş İlanları' },
-    { id: 'teknoloji', name: 'Yazılım Geliştirici İş İlanları' },
-    { id: 'finans', name: 'Muhasebeci İş İlanları' }
+    { id: 'ticaret', name: '🔥 DME Group Çağrı Merkezi' },
+    { id: 'lojistik', name: '🚀 Getir Kurye İlanları' },
+    { id: 'hizmet', name: '🍕 Dominos Pizza İlanları' },
+    { id: 'hizmet', name: '🍔 Burger King İlanları' },
+    { id: 'finans', name: '💰 Yüksek Maaşlı İş İlanları' },
+    { id: 'ticaret', name: '🏠 Home Office Çağrı Merkezi' },
+    { id: 'sanayi', name: '📦 Evde Paketleme İşleri' },
+    { id: 'enerji', name: '⚡ Akkuyu Nükleer Santral' }
   ];
   return (
     <div className="flex flex-wrap gap-2">
