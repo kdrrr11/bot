@@ -39,19 +39,6 @@ export function useJobs(options: UseJobsOptions = {}) {
   const [cachedJobs] = useState(() => new Map<string, JobListing>());
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Public read ayarı - sadece bir kez
-  useEffect(() => {
-    const enablePublicRead = async () => {
-      try {
-        const publicReadRef = ref(db, 'admin_settings/public_read');
-        await set(publicReadRef, true);
-      } catch (error) {
-        console.error('Public read ayarı yapılamadı:', error);
-      }
-    };
-    enablePublicRead();
-  }, []);
-
   // Ana veri yükleme effect'i
   useEffect(() => {
     let unsubscribe: (() => void) | undefined;
