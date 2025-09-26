@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BriefcaseIcon, UserCircle, Settings, LogOut, Trash2, FileText, Menu, X, Search } from 'lucide-react';
+import { Briefcase as BriefcaseIcon, CircleUser as UserCircle, Settings, LogOut, Trash2, FileText, Menu, X, Search } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { DeleteAccountModal } from './DeleteAccountModal';
 
