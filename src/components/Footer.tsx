@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, MapPin, Phone, ExternalLink, Briefcase, FileText, Shield, Users, Star, Heart, Building2, TrendingUp } from 'lucide-react';
+import { Mail, MapPin, Phone, ExternalLink, Briefcase, FileText, Shield, Users, Star, Heart, Building2, TrendingUp, MessageCircle } from 'lucide-react';
 
 export function Footer() {
   return (
