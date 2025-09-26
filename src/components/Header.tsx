@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, MapPin, Menu, X, User, Settings, LogOut, Briefcase, FileText, Plus } from 'lucide-react';
+import { Search, MapPin, Menu, X, User, Settings, LogOut, Briefcase, FileText, Plus, Building2, TrendingUp } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { DeleteAccountModal } from './DeleteAccountModal';
 
