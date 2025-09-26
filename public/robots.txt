@@ -1,19 +1,31 @@
 User-agent: *
 Allow: /
 
-# Allow all job listings and CV pages
+# Allow critical pages for SEO
 Allow: /is-ilanlari/
 Allow: /ilan/
 Allow: /cv-olustur
 Allow: /sayfa/
+Allow: /istanbul-is-ilanlari
+Allow: /ankara-is-ilanlari
+Allow: /izmir-is-ilanlari
+Allow: /bursa-is-ilanlari
+Allow: /antalya-is-ilanlari
+Allow: /part-time-is-ilanlari
+Allow: /remote-is-ilanlari
+Allow: /yeni-mezun-is-ilanlari
 
-# Prevent duplicate content
+# Prevent duplicate content and admin pages
 Disallow: /giris
 Disallow: /kayit
 Disallow: /sifremi-unuttum
 Disallow: /hesap-ayarlari
 Disallow: /ilanlarim
 Disallow: /admin
+Disallow: /api/
+Disallow: /temp/
+Disallow: /_next/
+Disallow: /node_modules/
 
 # Allow AdSense crawler
 User-agent: Mediapartners-Google
@@ -37,6 +49,10 @@ Crawl-delay: 1
 User-agent: YandexBot
 Allow: /
 Crawl-delay: 1
+
+# Allow other search engines
+User-agent: DuckDuckBot
+Allow: /
 
 # Sitemap locations
 Sitemap: https://isilanlarim.org/sitemap.xml

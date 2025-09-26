@@ -33,7 +33,7 @@ export function LocationSearch({ onLocationChange }: LocationSearchProps) {
       <input
         type="text"
         value={inputValue}
-        placeholder="Şehir seçin (İstanbul, Ankara, İzmir...)"
+        placeholder="Şehir seçin... (İstanbul, Ankara, İzmir, Bursa, Antalya)"
         onChange={handleInputChange}
         onFocus={() => setShowSuggestions(true)}
         onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
@@ -43,7 +43,7 @@ export function LocationSearch({ onLocationChange }: LocationSearchProps) {
       {showSuggestions && (
         <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 max-h-64 overflow-y-auto">
           {filteredCities.length === 0 ? (
-            <div className="px-4 py-3 text-gray-500 text-sm">Şehir bulunamadı</div>
+            <div className="px-4 py-3 text-gray-500 text-sm">🏙️ Şehir bulunamadı</div>
           ) : (
             filteredCities.map((city) => (
               <button

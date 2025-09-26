@@ -43,20 +43,47 @@ export function HomePage() {
   useEffect(() => {
     // SEO meta tags
     generateMetaTags({
-      title: 'İş İlanları - İstanbul Ankara İzmir Güncel İş Fırsatları 2025',
-      description: 'Türkiye\'nin en güncel iş ilanları! İstanbul, Ankara, İzmir\'de binlerce iş fırsatı. Mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik pozisyonları. Ücretsiz CV oluştur, hemen başvur!',
+      title: 'İş İlanları 2025 - Türkiye\'nin En Güncel İş Fırsatları',
+      description: 'Türkiye\'nin en kapsamlı iş ilanları platformu. 6 Ocak 2025 itibarıyla 50.000+ aktif iş ilanı. İstanbul, Ankara, İzmir ve tüm şehirlerde güncel iş fırsatları. Hemen başvurun, kariyerinizi şekillendirin!',
       keywords: [
-        'iş ilanları', 'istanbul iş ilanları', 'ankara iş ilanları', 'izmir iş ilanları',
+        'iş ilanları', 'güncel iş ilanları', 'iş fırsatları', 'eleman ilanları', 'kariyer', 'iş ilanları 2025',
+        'istanbul iş ilanları', 'ankara iş ilanları', 'izmir iş ilanları',
         'mühendis iş ilanları', 'garson iş ilanları', 'kurye iş ilanları', 
         'resepsiyon görevlisi iş ilanları', 'aşçı yardımcısı iş ilanları', 'özel güvenlik iş ilanları',
-        'güncel iş ilanları', 'yeni iş ilanları', 'part time iş ilanları', 'tam zamanlı iş ilanları',
-        'uzaktan çalışma iş ilanları', 'freelance iş ilanları', 'home office iş ilanları',
+        'yeni iş ilanları', 'part time iş ilanları', 'tam zamanlı iş ilanları',
+        'uzaktan çalışma iş ilanları', 'remote iş ilanları', 'freelance iş ilanları', 'home office iş ilanları',
+        'yeni mezun iş ilanları', 'deneyimsiz iş ilanları',
         'iş ara', 'iş bul', 'kariyer fırsatları', 'iş başvurusu', 'cv oluştur', 'ücretsiz cv',
         'özgeçmiş hazırlama', 'iş arama sitesi', 'eleman.net', 'kariyer.net', 'secretcv',
         'yenibiris', 'sahibinden iş ilanları', 'işkur iş ilanları', 'online iş başvurusu'
       ],
       url: window.location.pathname
     });
+
+    // Add structured data for homepage job listings
+    const jobListSchema = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Güncel İş İlanları 2025",
+      "description": "Türkiye'nin en güncel iş ilanları listesi",
+      "url": "https://isilanlarim.org",
+      "numberOfItems": filteredJobs.length,
+      "itemListElement": filteredJobs.slice(0, 10).map((job, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "JobPosting",
+          "title": job.title,
+          "description": job.description.substring(0, 100) + "...",
+          "hiringOrganization": {
+            "@type": "Organization",
+            "name": job.company
+          },
+          "jobLocation": job.location,
+          "url": `https://isilanlarim.org${generateJobUrl(job)}`
+        }
+      }))
+    };
 
     // Toast notifications
     if (location.state?.newJobCreated) {

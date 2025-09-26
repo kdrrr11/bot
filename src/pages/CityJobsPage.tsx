@@ -27,19 +27,30 @@ export function CityJobsPage() {
     // SEO meta tags
     generateMetaTags({
       title: `${cityName} İş İlanları - 2025 Güncel ${cityName} İş Fırsatları`,
-      description: `${cityName}'da iş arıyorsanız doğru yerdesiniz! Binlerce güncel iş ilanı, mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik pozisyonları. Hemen başvuru yapın!`,
+      description: `${cityName}'da iş arıyorsanız doğru yerdesiniz! 50.000+ güncel iş ilanı arasından ${cityName} pozisyonları. Mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik iş ilanları. Hemen başvuru yapın!`,
       keywords: [
         `${cityName.toLowerCase()} iş ilanları`,
+        `${cityName.toLowerCase()} iş ilanları 2025`,
         `${cityName.toLowerCase()} iş fırsatları`,
         `${cityName.toLowerCase()} kariyer`,
+        `${cityName.toLowerCase()} güncel iş ilanları`,
+        `${cityName.toLowerCase()} yeni iş ilanları`,
         `${cityName.toLowerCase()} mühendis iş ilanları`,
         `${cityName.toLowerCase()} garson iş ilanları`,
         `${cityName.toLowerCase()} kurye iş ilanları`,
-        'güncel iş ilanları',
+        `${cityName.toLowerCase()} resepsiyon görevlisi iş ilanları`,
+        `${cityName.toLowerCase()} aşçı yardımcısı iş ilanları`,
+        `${cityName.toLowerCase()} özel güvenlik iş ilanları`,
+        `${cityName.toLowerCase()} part time iş ilanları`,
+        `${cityName.toLowerCase()} tam zamanlı iş ilanları`,
+        `${cityName.toLowerCase()} remote iş ilanları`,
         'iş ara',
-        'kariyer fırsatları'
+        'kariyer fırsatları',
+        'güncel iş ilanları',
+        'iş ilanları 2025'
       ],
-      url: window.location.pathname
+      url: window.location.pathname,
+      cityName: cityName
     });
   }, [cityName]);
 

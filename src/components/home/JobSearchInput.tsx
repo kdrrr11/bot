@@ -21,18 +21,22 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
 
   // Popular search terms
   const popularSearchTerms = [
-    'Yazılım Geliştirici',
-    'Satış Temsilcisi',
-    'Muhasebeci',
-    'Öğretmen',
-    'Mühendis',
-    'Garson',
-    'Kurye',
-    'Evde Paketleme',
-    'Getir Kurye',
-    'Resepsiyon Görevlisi',
-    'Aşçı Yardımcısı',
-    'Özel Güvenlik'
+    'Yazılım Geliştirici İş İlanları',
+    'Satış Temsilcisi İş İlanları',
+    'Muhasebeci İş İlanları',
+    'Öğretmen İş İlanları',
+    'Mühendis İş İlanları',
+    'Garson İş İlanları',
+    'Kurye İş İlanları',
+    'Evde Paketleme İş İlanları',
+    'Getir Kurye İş İlanları',
+    'Resepsiyon Görevlisi İş İlanları',
+    'Aşçı Yardımcısı İş İlanları',
+    'Özel Güvenlik İş İlanları',
+    'Part Time İş İlanları',
+    'Remote İş İlanları',
+    'Yeni Mezun İş İlanları',
+    'Deneyimsiz İş İlanları'
   ];
 
   useEffect(() => {
@@ -88,7 +92,7 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
         ref={inputRef}
         type="text"
         value={inputValue}
-        placeholder="İş ara... (Mühendis, Garson, Kurye, Resepsiyon)"
+        placeholder="İş ara... (Yazılım Geliştirici, Garson, Kurye, Mühendis)"
         onChange={handleInputChange}
         onFocus={handleFocus}
         className="form-input w-full pl-12 pr-4 py-3 sm:py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 text-base"
@@ -100,7 +104,7 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
           className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 py-2 max-h-64 overflow-y-auto"
         >
           {inputValue.length === 0 && (
-            <div className="px-4 py-2 text-xs text-gray-500 font-semibold border-b border-gray-100">Popüler Aramalar</div>
+            <div className="px-4 py-2 text-xs text-gray-500 font-semibold border-b border-gray-100">🔥 Popüler İş Aramaları</div>
           )}
           
           {suggestions.length > 0 ? (

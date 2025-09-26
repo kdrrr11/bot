@@ -20,12 +20,15 @@ export function Footer() {
               </div>
             </div>
             <p className="text-responsive-xs text-gray-600 mb-4 leading-relaxed">
-              İş İlanları platformu, işverenler ve iş arayanları bir araya getiren güvenilir bir istihdam çözümüdür. 
-              Mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik ve daha birçok pozisyonda binlerce güncel iş fırsatı sunuyoruz.
+              <strong>İş İlanları 2025</strong> platformu, işverenler ve iş arayanları bir araya getiren güvenilir bir istihdam çözümüdür. 
+              <strong>Mühendis iş ilanları</strong>, <strong>garson iş ilanları</strong>, <strong>kurye iş ilanları</strong>, 
+              <strong>resepsiyon görevlisi iş ilanları</strong>, <strong>aşçı yardımcısı iş ilanları</strong>, <strong>özel güvenlik iş ilanları</strong> 
+              ve daha birçok pozisyonda <strong>50.000+</strong> güncel iş fırsatı sunuyoruz.
             </p>
             <p className="text-responsive-xs text-gray-600 leading-relaxed">
-              İşverenler için ücretsiz iş ilanı verme, iş arayanlar için detaylı arama ve filtreleme özellikleriyle 
-              İstanbul, Ankara, İzmir ve tüm Türkiye'de kariyer yolculuğunuzda yanınızdayız.
+              İşverenler için <strong>ücretsiz iş ilanı verme</strong>, iş arayanlar için <strong>detaylı arama ve filtreleme</strong> özellikleriyle 
+              <strong>İstanbul iş ilanları</strong>, <strong>Ankara iş ilanları</strong>, <strong>İzmir iş ilanları</strong> ve tüm Türkiye'de 
+              <strong>kariyer yolculuğunuzda</strong> yanınızdayız.
             </p>
           </div>
 
@@ -69,27 +72,27 @@ export function Footer() {
             <ul className="space-y-2 text-responsive-xs text-gray-600">
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>Güncel ve güvenilir iş ilanları</span>
+                <span><strong>Güncel ve güvenilir</strong> iş ilanları</span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>Detaylı kategori ve şehir bazlı arama</span>
+                <span><strong>Detaylı kategori</strong> ve <strong>şehir bazlı arama</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>Ücretsiz ilan yayınlama</span>
+                <span><strong>Ücretsiz ilan yayınlama</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>Kolay başvuru süreci</span>
+                <span><strong>Kolay başvuru süreci</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>81 ilde iş fırsatları</span>
+                <span><strong>81 ilde</strong> iş fırsatları</span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 flex-shrink-0"></div>
-                <span>20+ sektörde kariyer imkanları</span>
+                <span><strong>25+ sektörde</strong> kariyer imkanları</span>
               </li>
             </ul>
           </div>

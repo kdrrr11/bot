@@ -14,18 +14,20 @@ export function CategorySearch({ onCategorySelect, availableCategories }: Catego
 
   // Popüler arama terimleri
   const popularSearchTerms = [
-    { id: 'teknoloji', name: 'Mühendis' },
-    { id: 'hizmet', name: 'Garson' },
-    { id: 'lojistik', name: 'Kurye' },
-    { id: 'turizm', name: 'Resepsiyon' },
-    { id: 'hizmet', name: 'Aşçı Yardımcısı' },
-    { id: 'guvenlik', name: 'Özel Güvenlik' }
+    { id: 'teknoloji', name: 'Mühendis İş İlanları' },
+    { id: 'hizmet', name: 'Garson İş İlanları' },
+    { id: 'lojistik', name: 'Kurye İş İlanları' },
+    { id: 'turizm', name: 'Resepsiyon İş İlanları' },
+    { id: 'hizmet', name: 'Aşçı Yardımcısı İş İlanları' },
+    { id: 'guvenlik', name: 'Özel Güvenlik İş İlanları' },
+    { id: 'teknoloji', name: 'Yazılım Geliştirici İş İlanları' },
+    { id: 'finans', name: 'Muhasebeci İş İlanları' }
   ];
   return (
     <div className="flex flex-wrap gap-2">
       {/* Popüler arama terimleri */}
       <div className="w-full mb-2">
-        <p className="text-xs text-gray-500 mb-2">Popüler Aramalar:</p>
+        <p className="text-xs text-gray-500 mb-2 font-medium">🔥 Popüler İş Aramaları:</p>
         <div className="flex flex-wrap gap-2">
           {popularSearchTerms.map((term, index) => (
             <button

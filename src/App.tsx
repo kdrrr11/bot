@@ -64,17 +64,42 @@ export function App() {
                 <Route path="/home-office-is-ilanlari/sayfa/:pageNumber" element={<CategoryPage />} />
                 
                 {/* City-based routes */}
-                <Route path="/istanbul-is-ilanlari" element={<LocationPage />} />
-                <Route path="/istanbul-is-ilanlari/sayfa/:pageNumber" element={<LocationPage />} />
-                <Route path="/ankara-is-ilanlari" element={<LocationPage />} />
-                <Route path="/ankara-is-ilanlari/sayfa/:pageNumber" element={<LocationPage />} />
-                <Route path="/izmir-is-ilanlari" element={<LocationPage />} />
-                <Route path="/izmir-is-ilanlari/sayfa/:pageNumber" element={<LocationPage />} />
+                <Route path="/istanbul-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/istanbul-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
+                <Route path="/ankara-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/ankara-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
+                <Route path="/izmir-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/izmir-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
                 <Route path="/bursa-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/bursa-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
                 <Route path="/antalya-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/antalya-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
                 <Route path="/adana-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/adana-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
                 <Route path="/konya-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/konya-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
                 <Route path="/gaziantep-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/gaziantep-is-ilanlari/sayfa/:pageNumber" element={<CityJobsPage />} />
+                
+                {/* Additional major cities */}
+                <Route path="/mersin-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/diyarbakir-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/kayseri-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/eskisehir-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/samsun-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/denizli-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/sanliurfa-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/malatya-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/trabzon-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/van-is-ilanlari" element={<CityJobsPage />} />
+                
+                {/* Job type specific routes */}
+                <Route path="/yeni-mezun-is-ilanlari" element={<CategoryPage />} />
+                <Route path="/yeni-mezun-is-ilanlari/sayfa/:pageNumber" element={<CategoryPage />} />
+                <Route path="/deneyimsiz-is-ilanlari" element={<CategoryPage />} />
+                <Route path="/deneyimsiz-is-ilanlari/sayfa/:pageNumber" element={<CategoryPage />} />
+                <Route path="/staj-ilanlari" element={<CategoryPage />} />
+                <Route path="/staj-ilanlari/sayfa/:pageNumber" element={<CategoryPage />} />
                 
                 {/* Job details with SEO-friendly URL */}
                 <Route path="/ilan/:slug" element={<JobDetailsPage />} />

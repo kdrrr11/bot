@@ -166,22 +166,30 @@ export function generateMetaTags(data: {
   url: string;
   jobData?: JobListing;
   pageNumber?: number;
+  cityName?: string;
+  categoryName?: string;
 }): void {
   // İlan sayfası için özel title formatı
   let pageTitle: string;
   
   if (data.jobData) {
-    // Format: [İlan Başlığı] - [Şirket Adı], [Şehir] | isilanlarim.org
+    // Format: [İlan Başlığı] - [Şirket Adı], [Şehir] İş İlanı | isilanlarim.org
     const jobTitle = data.jobData.title || 'İş İlanı';
     const company = data.jobData.company || 'Şirket';
     const location = data.jobData.location || 'Türkiye';
-    pageTitle = `${jobTitle} - ${company}, ${location} | isilanlarim.org`;
+    pageTitle = `${jobTitle} - ${company}, ${location} İş İlanı | İsilanlarim.org`;
+  } else if (data.cityName) {
+    // Şehir sayfaları için özel format
+    pageTitle = `${data.cityName} İş İlanları - 2025 Güncel ${data.cityName} İş Fırsatları | İsilanlarim.org`;
+  } else if (data.categoryName) {
+    // Kategori sayfaları için özel format
+    pageTitle = `${data.categoryName} İş İlanları - 2025 Güncel ${data.categoryName} İş Fırsatları | İsilanlarim.org`;
   } else if (data.pageNumber && data.pageNumber > 1) {
     // Sayfa numarası varsa title'a ekle
     pageTitle = `${data.title} - Sayfa ${data.pageNumber} | İş İlanları 2025 | İsilanlarim.org`;
   } else {
     // Genel sayfalar için
-    pageTitle = `${data.title} | İş İlanları 2025 | İsilanlarim.org`;
+    pageTitle = `${data.title} | İsilanlarim.org`;
   }
   
   // Update title and meta description
@@ -190,7 +198,7 @@ export function generateMetaTags(data: {
   // İlan sayfası için özel meta description (ilk 155 karakter)
   let metaDescription: string;
   if (data.jobData) {
-    const description = data.jobData.description || '';
+    const description = `${data.jobData.title} iş ilanı - ${data.jobData.company}, ${data.jobData.location}. ${data.jobData.description}` || '';
     metaDescription = description.length > 155 
       ? description.substring(0, 152) + '...'
       : description;
@@ -200,7 +208,7 @@ export function generateMetaTags(data: {
   
   const metaTags = {
     description: metaDescription,
-    keywords: data.keywords?.join(', ') || 'iş ilanları, kariyer fırsatları, iş ara, cv oluştur, güncel iş ilanları, istanbul iş ilanları, ankara iş ilanları, mühendis iş ilanları, garson iş ilanları, kurye iş ilanları',
+    keywords: data.keywords?.join(', ') || 'iş ilanları, güncel iş ilanları, iş fırsatları, eleman ilanları, kariyer, istanbul iş ilanları, ankara iş ilanları, izmir iş ilanları, part time iş ilanları, remote iş ilanları, iş ilanları 2025, yeni mezun iş ilanları, deneyimsiz iş ilanları, mühendis iş ilanları, garson iş ilanları, kurye iş ilanları, resepsiyon görevlisi iş ilanları, aşçı yardımcısı iş ilanları, özel güvenlik iş ilanları',
     'og:title': pageTitle,
     'og:description': metaDescription,
     'og:image': data.image || 'https://isilanlarim.org/default-og-image.jpg',
@@ -216,7 +224,7 @@ export function generateMetaTags(data: {
     'robots': 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1, max-image-preview:standard',
     'googlebot': 'index, follow',
     'publisher': 'İsilanlarim.org',
-    'revisit-after': '1 days',
+    'revisit-after': '1 day',
     'author': 'İsilanlarim.org',
     'language': 'tr',
     'geo.region': 'TR',
@@ -225,7 +233,7 @@ export function generateMetaTags(data: {
     'rating': 'general',
     'copyright': 'İsilanlarim.org',
     'news_keywords': data.keywords?.slice(0, 10).join(', ') || 'iş ilanları, kariyer, istihdam',
-    'article:publisher': 'https://isilanlarim.org',
+    'article:publisher': 'İsilanlarim.org',
     'article:author': 'İsilanlarim.org',
     'article:section': data.jobData?.category || 'İş İlanları',
     'article:tag': data.keywords?.join(', ') || 'iş, kariyer, istihdam'
@@ -258,6 +266,16 @@ export function generateMetaTags(data: {
   }
   canonical.href = `https://isilanlarim.org${data.url}`;
 
+  // Add alternate links for mobile
+  let mobileAlternate = document.querySelector('link[rel="alternate"][media]');
+  if (!mobileAlternate) {
+    mobileAlternate = document.createElement('link');
+    mobileAlternate.rel = 'alternate';
+    mobileAlternate.setAttribute('media', 'only screen and (max-width: 640px)');
+    document.head.appendChild(mobileAlternate);
+  }
+  mobileAlternate.href = `https://isilanlarim.org${data.url}`;
+
   // Add prev/next links for pagination
   if (data.pageNumber && data.pageNumber > 1) {
     // Previous page link
@@ -271,6 +289,20 @@ export function generateMetaTags(data: {
       ? data.url.replace(/\/sayfa\/\d+/, '')
       : data.url.replace(/\/sayfa\/\d+/, `/sayfa/${data.pageNumber - 1}`);
     prevLink.href = `https://isilanlarim.org${prevUrl}`;
+  }
+
+  // Add next page link if applicable
+  if (data.pageNumber) {
+    let nextLink = document.querySelector('link[rel="next"]');
+    if (!nextLink) {
+      nextLink = document.createElement('link');
+      nextLink.rel = 'next';
+      document.head.appendChild(nextLink);
+    }
+    const nextUrl = data.url.includes('/sayfa/') 
+      ? data.url.replace(/\/sayfa\/\d+/, `/sayfa/${data.pageNumber + 1}`)
+      : `${data.url}/sayfa/${data.pageNumber + 1}`;
+    nextLink.href = `https://isilanlarim.org${nextUrl}`;
   }
 
   // Add JobPosting schema for job listings - GOOGLE ZENGIN SONUÇLAR İÇİN
@@ -289,7 +321,8 @@ export function generateMetaTags(data: {
       "description": data.jobData.description,
       "datePosted": datePosted, // ISO 8601 formatında
       "validThrough": validThrough, // Geçerlilik süresi eklendi
-      "employmentType": data.jobData.type,
+      "employmentType": data.jobData.type === 'Tam Zamanlı' ? 'FULL_TIME' : 
+                       data.jobData.type === 'Yarı Zamanlı' ? 'PART_TIME' : 'OTHER',
       "hiringOrganization": {
         "@type": "Organization",
         "name": data.jobData.company,
@@ -306,6 +339,10 @@ export function generateMetaTags(data: {
           "addressCountry": "TR"
         }
       },
+      "workHours": data.jobData.type === "Tam Zamanlı" ? "40 saat/hafta" : "Esnek çalışma saatleri",
+      "jobBenefits": "Sosyal güvence, performans primi, kariyer gelişimi",
+      "qualifications": data.jobData.educationLevel || "Belirtilmemiş",
+      "responsibilities": data.jobData.description.substring(0, 200) + "...",
       // Maaş bilgisi düzeltildi - geçersiz nesne türü sorunu çözüldü
       "baseSalary": salaryInfo.minValue ? {
         "@type": "MonetaryAmount",
@@ -320,29 +357,35 @@ export function generateMetaTags(data: {
       "industry": data.jobData.category,
       "occupationalCategory": data.jobData.subCategory,
       "educationRequirements": data.jobData.educationLevel || "Belirtilmemiş",
-      "experienceRequirements": data.jobData.experience || "Belirtilmemiş",
-      "applicationContact": {
-        "@type": "ContactPoint",
-        "email": data.jobData.contactEmail,
-        "telephone": data.jobData.contactPhone
-      },
+      "experienceRequirements": data.jobData.experience || "Deneyim seviyesi belirtilmemiş",
       "url": `https://isilanlarim.org${data.url}`,
       "identifier": {
         "@type": "PropertyValue",
         "name": "Job ID",
         "value": data.jobData.id
       },
-      // Ek alanlar
-      "workHours": data.jobData.type === "Tam Zamanlı" ? "40 saat/hafta" : "Esnek çalışma saatleri",
-      "jobBenefits": "Sosyal güvence, performans primi",
-      "qualifications": data.jobData.educationLevel || "Belirtilmemiş",
-      "responsibilities": data.jobData.description.substring(0, 200) + "...",
-      "skills": data.jobData.subCategory
+      "applicationContact": data.jobData.contactEmail || data.jobData.contactPhone ? {
+        "@type": "ContactPoint",
+        "email": data.jobData.contactEmail,
+        "telephone": data.jobData.contactPhone
+      } : undefined,
+      "skills": data.jobData.subCategory,
+      "salaryCurrency": "TRY",
+      "jobLocationType": data.jobData.type === 'Uzaktan' ? 'TELECOMMUTE' : 'PHYSICAL',
+      "applicantLocationRequirements": {
+        "@type": "Country",
+        "name": "Turkey"
+      }
     };
 
     // Maaş bilgisi yoksa baseSalary alanını kaldır
     if (!salaryInfo.minValue) {
       delete jobSchema.baseSalary;
+    }
+
+    // İletişim bilgisi yoksa applicationContact alanını kaldır
+    if (!jobSchema.applicationContact) {
+      delete jobSchema.applicationContact;
     }
 
     let scriptElement = document.querySelector('script[type="application/ld+json"][data-job]');
@@ -353,6 +396,65 @@ export function generateMetaTags(data: {
       document.head.appendChild(scriptElement);
     }
     scriptElement.textContent = JSON.stringify(jobSchema, null, 2);
+  }
+
+  // Add FAQ schema for homepage
+  if (data.url === '/' || data.url === '') {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "İş ilanları nasıl aranır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "İsilanlarim.org'da iş aramak çok kolay. Arama kutusuna pozisyon adı yazın, şehir seçin ve filtrelerle sonuçları daraltın. 50.000+ güncel iş ilanı arasından size uygun olanı bulabilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ücretsiz iş ilanı nasıl verilir?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "İsilanlarim.org'da iş ilanı vermek tamamen ücretsizdir. Kayıt olduktan sonra 'İlan Ver' butonuna tıklayın, ilan bilgilerinizi doldurun ve yayınlayın. İlanınız anında yayına girer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "En güncel iş ilanları hangileri?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Platformumuzda günlük olarak güncellenen binlerce ilan bulunur. 'Bugün' ve 'Yeni' etiketli ilanlar son 24-48 saat içinde yayınlanan en güncel iş fırsatlarıdır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Remote iş bulabilir miyim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet, uzaktan çalışma imkanı sunan 1000+ iş ilanımız var. 'Remote' filtresini kullanarak evden çalışabileceğiniz pozisyonları bulabilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "CV nasıl oluşturabilirim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ücretsiz CV oluşturma aracımızla profesyonel CV hazırlayabilirsiniz. 'CV Oluştur' sayfasında bilgilerinizi girin, önizleme yapın ve PDF olarak indirin."
+          }
+        }
+      ]
+    };
+
+    let faqScript = document.querySelector('script[type="application/ld+json"][data-faq]');
+    if (!faqScript) {
+      faqScript = document.createElement('script');
+      faqScript.type = 'application/ld+json';
+      faqScript.setAttribute('data-faq', 'true');
+      document.head.appendChild(faqScript);
+    }
+    faqScript.textContent = JSON.stringify(faqSchema, null, 2);
   }
 
   // Add BreadcrumbList schema
