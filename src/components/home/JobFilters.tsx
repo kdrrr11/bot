@@ -27,15 +27,15 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
   const selectedCategory = jobCategories.find(c => c.id === filters.category);
 
   return (
-    <div id="filters" className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div id="filters" className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
       {/* Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50"
+        className="w-full p-4 sm:p-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors touch-target"
       >
         <div className="flex items-center gap-2 text-gray-700">
           <Filter className="h-5 w-5" />
-          <h3 className="font-medium">Filtreler</h3>
+          <h3 className="text-responsive-sm font-medium">Filtreler</h3>
         </div>
         {isExpanded ? (
           <ChevronUp className="h-5 w-5 text-gray-500" />
@@ -46,21 +46,21 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
 
       {/* Collapsible content */}
       {isExpanded && (
-        <div className="p-4 space-y-6 border-t">
+        <div className="p-4 sm:p-6 space-responsive border-t border-gray-100">
           {/* CV Oluştur */}
           {/* Desktop'ta CV oluştur bölümü */}
           <div className="hidden md:block">
-            <div className="bg-blue-50 p-4 rounded-lg">
+            <div className="bg-blue-50 p-4 sm:p-6 rounded-xl border border-blue-100">
               <div className="flex items-center gap-2 mb-3">
                 <FileText className="h-5 w-5 text-blue-600" />
-                <h3 className="font-medium text-blue-900">CV Oluştur</h3>
+                <h3 className="text-responsive-sm font-medium text-blue-900">CV Oluştur</h3>
               </div>
-              <p className="text-sm text-blue-700 mb-3">
+              <p className="text-responsive-xs text-blue-700 mb-4">
                 Profesyonel CV'nizi oluşturun ve iş başvurularınızda kullanın
               </p>
               <Button
                 onClick={() => navigate('/cv-olustur')}
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-sm"
               >
                 CV Oluşturmaya Başla
               </Button>
@@ -69,13 +69,13 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
                 Popüler Kategoriler
               </label>
               <select
                 value={filters.category}
                 onChange={(e) => onFilterChange({ category: e.target.value, subCategory: '' })}
-                className="w-full p-2 border rounded-md"
+                className="form-input w-full"
               >
                 <option value="">Tüm Kategoriler</option>
                 <option value="teknoloji">Mühendis İş İlanları</option>
@@ -94,13 +94,13 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
 
             {selectedCategory && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
                   Alt Kategori
                 </label>
                 <select
                   value={filters.subCategory}
                   onChange={(e) => onFilterChange({ subCategory: e.target.value })}
-                  className="w-full p-2 border rounded-md"
+                  className="form-input w-full"
                 >
                   <option value="">Tüm Alt Kategoriler</option>
                   {selectedCategory.subCategories.map(sub => (
@@ -113,13 +113,13 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
                 Deneyim Seviyesi
               </label>
               <select
                 value={filters.experienceLevel}
                 onChange={(e) => onFilterChange({ experienceLevel: e.target.value })}
-                className="w-full p-2 border rounded-md"
+                className="form-input w-full"
               >
                 <option value="">Tümü</option>
                 {experienceLevels.map(level => (
@@ -131,13 +131,13 @@ export function JobFilters({ onFilterChange, filters }: JobFiltersProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-responsive-xs font-medium text-gray-700 mb-2">
                 Sıralama
               </label>
               <select
                 value={filters.sortBy}
                 onChange={(e) => onFilterChange({ sortBy: e.target.value })}
-                className="w-full p-2 border rounded-md"
+                className="form-input w-full"
               >
                 <option value="newest">En Yeni</option>
                 <option value="oldest">En Eski</option>

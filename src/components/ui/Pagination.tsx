@@ -28,14 +28,14 @@ export function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-lg shadow-sm">
+    <div className="bg-white px-4 py-4 sm:px-6 rounded-lg shadow-sm border border-gray-200">
       {/* Mobil görünüm */}
       <div className="flex-1 flex justify-between sm:hidden">
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={!hasPrevPage}
           className={clsx(
-            'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md',
+            'relative inline-flex items-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-lg touch-target',
             hasPrevPage
               ? 'text-gray-700 bg-white hover:bg-gray-50'
               : 'text-gray-400 bg-gray-100 cursor-not-allowed'
@@ -45,7 +45,7 @@ export function Pagination({
           Önceki
         </button>
         
-        <span className="text-sm text-gray-700 flex items-center">
+        <span className="text-sm text-gray-700 flex items-center px-2">
           Sayfa {currentPage} / {totalPages}
         </span>
         
@@ -53,7 +53,7 @@ export function Pagination({
           onClick={() => onPageChange(currentPage + 1)}
           disabled={!hasNextPage}
           className={clsx(
-            'relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md',
+            'relative inline-flex items-center px-4 py-3 border border-gray-300 text-sm font-medium rounded-lg touch-target',
             hasNextPage
               ? 'text-gray-700 bg-white hover:bg-gray-50'
               : 'text-gray-400 bg-gray-100 cursor-not-allowed'
@@ -67,7 +67,7 @@ export function Pagination({
       {/* Desktop görünüm */}
       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
+          <p className="text-responsive-xs text-gray-700">
             <span className="font-medium">{startIndex}</span>
             {' - '}
             <span className="font-medium">{endIndex}</span>
@@ -78,13 +78,13 @@ export function Pagination({
         </div>
         
         <div>
-          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <nav className="relative z-0 inline-flex rounded-lg shadow-sm -space-x-px" aria-label="Pagination">
             {/* Önceki butonu */}
             <button
               onClick={() => onPageChange(currentPage - 1)}
               disabled={!hasPrevPage}
               className={clsx(
-                'relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 text-sm font-medium',
+                'relative inline-flex items-center px-3 py-2 rounded-l-lg border border-gray-300 text-sm font-medium touch-target',
                 hasPrevPage
                   ? 'text-gray-500 bg-white hover:bg-gray-50'
                   : 'text-gray-300 bg-gray-100 cursor-not-allowed'
@@ -105,7 +105,7 @@ export function Pagination({
                   <button
                     onClick={() => onPageChange(page as number)}
                     className={clsx(
-                      'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
+                      'relative inline-flex items-center px-4 py-2 border text-sm font-medium touch-target',
                       currentPage === page
                         ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
                         : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
@@ -122,7 +122,7 @@ export function Pagination({
               onClick={() => onPageChange(currentPage + 1)}
               disabled={!hasNextPage}
               className={clsx(
-                'relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 text-sm font-medium',
+                'relative inline-flex items-center px-3 py-2 rounded-r-lg border border-gray-300 text-sm font-medium touch-target',
                 hasNextPage
                   ? 'text-gray-500 bg-white hover:bg-gray-50'
                   : 'text-gray-300 bg-gray-100 cursor-not-allowed'

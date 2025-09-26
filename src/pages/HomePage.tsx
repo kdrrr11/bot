@@ -43,8 +43,8 @@ export function HomePage() {
   useEffect(() => {
     // SEO meta tags
     generateMetaTags({
-      title: 'İş İlanları 2025 - İstanbul Ankara İzmir Güncel İş Fırsatları',
-      description: 'Türkiye\'nin en güncel iş ilanları sitesi! İstanbul, Ankara, İzmir\'de mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik pozisyonları. Ücretsiz CV oluştur, hemen başvur. 2025 kariyer fırsatları burada!',
+      title: 'İş İlanları - İstanbul Ankara İzmir Güncel İş Fırsatları 2025',
+      description: 'Türkiye\'nin en güncel iş ilanları! İstanbul, Ankara, İzmir\'de binlerce iş fırsatı. Mühendis, garson, kurye, resepsiyon görevlisi, aşçı yardımcısı, özel güvenlik pozisyonları. Ücretsiz CV oluştur, hemen başvur!',
       keywords: [
         'iş ilanları', 'istanbul iş ilanları', 'ankara iş ilanları', 'izmir iş ilanları',
         'mühendis iş ilanları', 'garson iş ilanları', 'kurye iş ilanları', 

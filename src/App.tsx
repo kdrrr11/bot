@@ -21,6 +21,7 @@ import { PromoteJobPage } from './pages/PromoteJobPage';
 import { PaymentSuccessPage } from './pages/PaymentSuccessPage';
 import { PaymentCancelPage } from './pages/PaymentCancelPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { CityJobsPage } from './pages/CityJobsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export function App() {
@@ -69,6 +70,11 @@ export function App() {
                 <Route path="/ankara-is-ilanlari/sayfa/:pageNumber" element={<LocationPage />} />
                 <Route path="/izmir-is-ilanlari" element={<LocationPage />} />
                 <Route path="/izmir-is-ilanlari/sayfa/:pageNumber" element={<LocationPage />} />
+                <Route path="/bursa-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/antalya-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/adana-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/konya-is-ilanlari" element={<CityJobsPage />} />
+                <Route path="/gaziantep-is-ilanlari" element={<CityJobsPage />} />
                 
                 {/* Job details with SEO-friendly URL */}
                 <Route path="/ilan/:slug" element={<JobDetailsPage />} />

@@ -83,24 +83,24 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
 
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+      <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
       <input
         ref={inputRef}
         type="text"
         value={inputValue}
-        placeholder="İş ara... (örn: Yazılım Geliştirici, Satış Temsilcisi)"
+        placeholder="İş ara... (Mühendis, Garson, Kurye, Resepsiyon)"
         onChange={handleInputChange}
         onFocus={handleFocus}
-        className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
+        className="form-input w-full pl-12 pr-4 py-3 sm:py-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 text-base"
       />
       
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
+          className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-strong border border-gray-200 py-2 max-h-64 overflow-y-auto"
         >
           {inputValue.length === 0 && (
-            <div className="px-4 py-2 text-xs text-gray-500 font-medium">Popüler Aramalar</div>
+            <div className="px-4 py-2 text-xs text-gray-500 font-semibold border-b border-gray-100">Popüler Aramalar</div>
           )}
           
           {suggestions.length > 0 ? (
@@ -108,13 +108,13 @@ export function JobSearchInput({ onSearch, onFocus }: JobSearchInputProps) {
               <button
                 key={index}
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="w-full text-left px-4 py-2 text-gray-900 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+                className="w-full text-left px-4 py-3 text-gray-900 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none transition-colors text-sm sm:text-base touch-target"
               >
                 {suggestion}
               </button>
             ))
           ) : (
-            <div className="px-4 py-2 text-gray-500">Sonuç bulunamadı</div>
+            <div className="px-4 py-3 text-gray-500 text-sm">Sonuç bulunamadı</div>
           )}
         </div>
       )}
