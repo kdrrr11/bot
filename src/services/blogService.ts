@@ -3,7 +3,7 @@ import { ref, push, get, query, orderByChild, limitToLast, set } from 'firebase/
 import { db } from '../lib/firebase';
 import { generateSlug } from '../utils/seoUtils';
 
-const API_KEY = 'AIzaSyBeaq3AVf5FDGORNwF_ls2osRqEja2N_UU';
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyAyqcZq_8x7BhmTcjnP3qRt5J9jMtzp27w';
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export interface BlogPost {
@@ -219,21 +219,25 @@ Sen İşBuldum platformunun canlı destek AI asistanısın. Kullanıcının soru
 KULLANICI SORUSU: "${userMessage}"
 
 YANIT KURALLARI:
-1. Çok kısa ve net (20-80 kelime)
+1. ÇOK KISA VE NET (15-40 kelime MAX)
 2. Hemen çözüm odaklı
-3. Platform özelliklerini anlat
-4. Gerekirse yönlendirme yap
-5. AI olduğunu belirt
-6. Samimi ve yardımcı ton
+3. Tek cümle tercih et
+4. Emoji kullan (1-2 adet)
+5. AI olduğunu kısa belirt
+6. Mobil kullanıcı için optimize
 
 PLATFORM ÖZELLİKLERİ:
 - Ücretsiz iş ilanı verme
 - CV oluşturma aracı
 - 50.000+ güncel ilan
 - Tüm Türkiye kapsamı
-- Mobil uyumlu
 
-Sadece yanıt metnini döndür.
+ÖRNEK YANITLAR:
+"🤖 İş aramak için ana sayfada filtreleri kullanın"
+"📄 CV oluşturmak için /cv-olustur sayfasına gidin"
+"💼 Ücretsiz ilan vermek için kayıt olun"
+
+Sadece kısa yanıt metnini döndür, açıklama yapma.
 `;
 
       const result = await this.model.generateContent(prompt);
@@ -241,7 +245,7 @@ Sadece yanıt metnini döndür.
 
     } catch (error) {
       console.error('❌ Canlı destek yanıtı hatası:', error);
-      return '🤖 AI Asistan: Şu anda teknik bir sorun yaşıyorum. Lütfen sorunuzu bilwininc@gmail.com adresine gönderin veya daha sonra tekrar deneyin.';
+      return '🤖 Teknik sorun var. Lütfen tekrar deneyin.';
     }
   }
 

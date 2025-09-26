@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Firebase Admin SDK zaten index.ts'de initialize edilmiş
-const API_KEY = 'AIzaSyBeaq3AVf5FDGORNwF_ls2osRqEja2N_UU';
+const API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyAyqcZq_8x7BhmTcjnP3qRt5J9jMtzp27w';
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Her gün saat 09:00'da çalışacak

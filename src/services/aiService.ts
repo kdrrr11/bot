@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { jobCategories } from '../data/jobCategories';
 
-const API_KEY = 'AIzaSyBeaq3AVf5FDGORNwF_ls2osRqEja2N_UU';
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyAyqcZq_8x7BhmTcjnP3qRt5J9jMtzp27w';
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export interface SEOSuggestion {
