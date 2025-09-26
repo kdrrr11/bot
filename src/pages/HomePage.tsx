@@ -161,6 +161,8 @@ export function HomePage() {
           onLocationChange={(city) => updateFilters({ city })}
           onCategorySelect={(category) => updateFilters({ category, subCategory: '' })}
           availableCategories={categories}
+          updateFilters={updateFilters}
+          updateFilters={updateFilters}
         />
       </div>
 
@@ -354,6 +356,7 @@ const MainContent: React.FC<{
   hasMore: boolean;
   loadMoreJobs: () => void;
   loadingMore: boolean;
+  updateFilters: (filters: any) => void;
 }> = ({
   loading,
   error,
@@ -363,7 +366,8 @@ const MainContent: React.FC<{
   refetchJobs,
   hasMore,
   loadMoreJobs,
-  loadingMore
+  loadingMore,
+  updateFilters
 }) => {
   // Loading State
   if (loading && filteredJobs.length === 0) {

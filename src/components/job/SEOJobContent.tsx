@@ -33,7 +33,8 @@ export function SEOJobContent({ jobData }: SEOJobContentProps) {
         </div>
 
         {/* İş Arama Rehberi */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-responsive">
+        <section>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-responsive">
           <div className="bg-white p-responsive rounded-xl shadow-sm border border-gray-100">
             <div className="flex items-center gap-3 mb-4">
               <Search className="h-6 w-6 text-blue-600" />
@@ -116,6 +117,7 @@ export function SEOJobContent({ jobData }: SEOJobContentProps) {
                 <strong>Mülakat hazırlık</strong> teknikleri
               </li>
             </ul>
+          </div>
           </div>
         </section>
 

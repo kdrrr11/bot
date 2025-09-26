@@ -133,11 +133,6 @@ export function Footer() {
                 <MapPin className="h-4 w-4" />
                 Türkiye
               </span>
-              <span className="hidden sm:block text-gray-300">|</span>
-              <a href="tel:+905459772134" className="flex items-center gap-2 hover:text-red-600 transition-colors touch-target">
-                <Phone className="h-4 w-4" />
-                +90 545 977 21 34
-              </a>
             </div>
 
             {/* Copyright */}
