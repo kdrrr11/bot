@@ -41,13 +41,55 @@ export function useJobFilters(jobs: JobListing[]) {
 
       const matchesCategory = !filters.category || job.category === filters.category;
       const matchesSubCategory = !filters.subCategory || job.subCategory === filters.subCategory;
-      const matchesCity = !filters.city || job.location.toLowerCase().includes(filters.city.toLowerCase());
+      
+      // Şehir filtresi - daha esnek eşleştirme
+      let matchesCity = true;
+      if (filters.city) {
+        const cityFilter = filters.city.toLowerCase();
+        const jobLocation = job.location.toLowerCase();
+        
+        // Tam eşleşme veya içerik eşleşmesi
+        matchesCity = jobLocation.includes(cityFilter) || 
+                     cityFilter.includes(jobLocation) ||
+                     jobLocation === cityFilter;
+      }
+      
       const matchesExperience = !filters.experienceLevel || job.experienceLevel === filters.experienceLevel;
 
       return matchesSearch && matchesCategory && matchesSubCategory && matchesCity && matchesExperience;
     });
     
     console.log("🔍 Filtreleme sonrası ilan sayısı:", filtered.length);
+    
+    // Eğer şehir filtresi var ama sonuç yoksa, diğer şehirlerdeki benzer ilanları göster
+    if (filters.city && filtered.length === 0) {
+      console.log("🏙️ Seçilen şehirde ilan bulunamadı, benzer ilanlar gösteriliyor...");
+      
+      const similarJobs = jobs.filter(job => {
+        const matchesSearch = !filters.searchTerm || 
+          job.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+          job.company.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+          job.description.toLowerCase().includes(filters.searchTerm.toLowerCase());
+
+        const matchesCategory = !filters.category || job.category === filters.category;
+        const matchesSubCategory = !filters.subCategory || job.subCategory === filters.subCategory;
+        const matchesExperience = !filters.experienceLevel || job.experienceLevel === filters.experienceLevel;
+
+        return matchesSearch && matchesCategory && matchesSubCategory && matchesExperience;
+      });
+      
+      console.log("🔍 Benzer ilanlar bulundu:", similarJobs.length);
+      return similarJobs.sort((a, b) => {
+        const timeA = a.createdAt || 0; 
+        const timeB = b.createdAt || 0;
+        
+        if (filters.sortBy === 'newest') {
+          return timeB - timeA;
+        } else {
+          return timeA - timeB;
+        }
+      });
+    }
     
     // Sonra sıralama yap - SADECE createdAt TARİHİNE GÖRE
     const sorted = [...filtered].sort((a, b) => {
@@ -78,9 +120,31 @@ export function useJobFilters(jobs: JobListing[]) {
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
+  const clearFilters = () => {
+    console.log("🧹 Tüm filtreler temizleniyor");
+    setFilters({
+      searchTerm: '',
+      category: '',
+      subCategory: '',
+      city: '',
+      experienceLevel: '',
+      sortBy: 'newest'
+    });
+  };
+
+  const hasActiveFilters = () => {
+    return filters.searchTerm || filters.category || filters.subCategory || 
+           filters.city || filters.experienceLevel;
+  };
   return {
     filters,
     updateFilters,
-    filteredJobs: filteredJobs()
+    clearFilters,
+    hasActiveFilters,
+    filteredJobs: filteredJobs(),
+    isShowingSimilar: filters.city && filteredJobs().length > 0 && 
+                     !filteredJobs().some(job => 
+                       job.location.toLowerCase().includes(filters.city.toLowerCase())
+                     )
   };
 }

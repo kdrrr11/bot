@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Filter, ChevronDown, ChevronUp, MapPin, Briefcase, Clock, DollarSign } from 'lucide-react';
+import { Filter, ChevronDown, ChevronUp, MapPin, Briefcase, Clock, DollarSign, X, RotateCcw } from 'lucide-react';
 import { jobCategories } from '../../data/jobCategories';
 import { turkishCities } from '../../data/turkishCities';
 
@@ -13,6 +13,8 @@ interface JobFiltersProps {
     sortBy: 'newest' | 'oldest';
   };
   onFilterChange: (filters: any) => void;
+  onClearFilters?: () => void;
+  hasActiveFilters?: boolean;
   availableCategories?: Set<string>;
 }
 
@@ -24,27 +26,80 @@ const experienceLevels = [
   { id: 'expert', name: 'Uzman (10+ Yıl)' }
 ];
 
-export function JobFilters({ filters, onFilterChange, availableCategories }: JobFiltersProps) {
+export function JobFilters({ filters, onFilterChange, onClearFilters, hasActiveFilters, availableCategories }: JobFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const selectedCategory = jobCategories.find(c => c.id === filters.category);
 
   return (
     <div id="filters" className="filter-section">
       {/* Header */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between text-left hover:bg-gray-50 p-2 rounded-lg transition-colors touch-target"
-      >
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between mb-4">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-2 text-left hover:bg-gray-50 p-2 rounded-lg transition-colors touch-target"
+        >
           <Filter className="h-5 w-5 text-red-600" />
           <h3 className="text-lg font-bold text-gray-900">Filtreler</h3>
-        </div>
-        {isExpanded ? (
-          <ChevronUp className="h-5 w-5 text-gray-500" />
-        ) : (
-          <ChevronDown className="h-5 w-5 text-gray-500" />
+          {isExpanded ? (
+            <ChevronUp className="h-5 w-5 text-gray-500" />
+          ) : (
+            <ChevronDown className="h-5 w-5 text-gray-500" />
+          )}
+        </button>
+        
+        {hasActiveFilters && onClearFilters && (
+          <button
+            onClick={onClearFilters}
+            className="flex items-center gap-1 px-3 py-1.5 text-xs bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors touch-target"
+            title="Tüm filtreleri temizle"
+          >
+            <RotateCcw className="h-3 w-3" />
+            Temizle
+          </button>
         )}
-      </button>
+      </div>
+
+      {/* Active Filters Display */}
+      {hasActiveFilters && (
+        <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+          <div className="text-xs font-medium text-blue-800 mb-2">Aktif Filtreler:</div>
+          <div className="flex flex-wrap gap-2">
+            {filters.searchTerm && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs">
+                Arama: {filters.searchTerm}
+                <button
+                  onClick={() => onFilterChange({ searchTerm: '' })}
+                  className="hover:bg-blue-200 rounded-full p-0.5"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </span>
+            )}
+            {filters.city && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">
+                Şehir: {filters.city}
+                <button
+                  onClick={() => onFilterChange({ city: '' })}
+                  className="hover:bg-green-200 rounded-full p-0.5"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </span>
+            )}
+            {filters.category && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 rounded-md text-xs">
+                Kategori: {jobCategories.find(c => c.id === filters.category)?.name}
+                <button
+                  onClick={() => onFilterChange({ category: '', subCategory: '' })}
+                  className="hover:bg-purple-200 rounded-full p-0.5"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Filters Content */}
       {isExpanded && (
@@ -108,6 +163,12 @@ export function JobFilters({ filters, onFilterChange, availableCategories }: Job
                 </option>
               ))}
             </select>
+            
+            {filters.city && (
+              <p className="text-xs text-blue-600 mt-2">
+                💡 İpucu: Seçilen şehirde ilan yoksa diğer şehirlerdeki benzer ilanlar gösterilir
+              </p>
+            )}
           </div>
 
           {/* Experience Level */}
